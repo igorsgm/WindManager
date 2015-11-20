@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 import control.AccountController;
 
-public class CancelAccountDeletionBtnListener implements ActionListener {
+public class CancelCharacterDeletionBtnListener implements ActionListener {
 
 	private AccountController accountController;
 	
-	public CancelAccountDeletionBtnListener(AccountController accountController){
+	public CancelCharacterDeletionBtnListener(AccountController accountController){
 		this.accountController = accountController;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.accountController.closeAccountConfirmDeletionWindow();
+		this.accountController.closeCharacterConfirmDeletionWindow();
 	}
 
 }

@@ -24,7 +24,7 @@ public class DeleteAccountBtnListener implements ActionListener {
 		if (selectedRow != -1) {
 			//Getting accID from the selected row
 			int accID = (int) this.mainWindow.getTableAccounts().getValueAt(selectedRow, 0);
-			this.accountController.createConfirmDeletionWindow(accID);
+			this.accountController.createAccountConfirmDeletionWindow(accID);
 		}
 	}
 

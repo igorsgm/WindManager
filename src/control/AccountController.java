@@ -3,7 +3,6 @@ package control;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import database.SimulatedDataBase;
@@ -11,7 +10,8 @@ import exception.AccountNotFoundException;
 import exception.CharacterNotFoundException;
 import model.Account;
 import model.Character;
-import view.ConfirmDeletionWindow;
+import view.AccountConfirmDeletionWindow;
+import view.CharacterConfirmDeletionWindow;
 import view.MainWindow;
 import view.RegisterAccountWindow;
 
@@ -21,7 +21,8 @@ public class AccountController {
 	private RegisterAccountWindow registerAccountWindow;
 	private CharacterController characterController;
 	private MainWindow mainWindow;
-	private ConfirmDeletionWindow confirmDeletionWindow;
+	private AccountConfirmDeletionWindow accountConfirmDeletionWindow;
+	private CharacterConfirmDeletionWindow characterConfirmDeletionWindow;
 	
 	//Constructors
 	public AccountController(){
@@ -43,8 +44,12 @@ public class AccountController {
 		this.characterController.createRegisterCharacterWindow();
 	}
 
-	public void createConfirmDeletionWindow(int accID) {
-		this.confirmDeletionWindow = new ConfirmDeletionWindow(this, accID);
+	public void createAccountConfirmDeletionWindow(int accID) {
+		this.accountConfirmDeletionWindow = new AccountConfirmDeletionWindow(this, accID);
+	}
+	
+	public void createCharacterConfirmDeletionWindow(int characterAccID, String characterName) {
+		this.characterConfirmDeletionWindow = new CharacterConfirmDeletionWindow(this, characterAccID, characterName);
 	}
 
 	public void registerNewAccount(int accountID, String accountName, String password) {
@@ -56,14 +61,24 @@ public class AccountController {
 		this.sdb.deleteAccount(accID);
 	}
 	
+	public void deleteCharacter(int characterAccID, String characterName) {
+		this.sdb.deleteCharacter(characterAccID, characterName);
+		
+	}
+	
 	public void closeRegisterAccountWindow() {
 		this.registerAccountWindow.setVisible(false);
 		this.registerAccountWindow = null;
 	}
 
-	public void closeConfirmDeletionWindow() {
-		this.confirmDeletionWindow.setVisible(false);
-		this.confirmDeletionWindow = null;
+	public void closeAccountConfirmDeletionWindow() {
+		this.accountConfirmDeletionWindow.setVisible(false);
+		this.accountConfirmDeletionWindow = null;
+	}
+	
+	public void closeCharacterConfirmDeletionWindow() {
+		this.characterConfirmDeletionWindow.setVisible(false);
+		this.characterConfirmDeletionWindow = null;
 	}
 	
 	public void populateAccountTable() {
@@ -82,18 +97,19 @@ public class AccountController {
 
 	public void populateCharacterTable() {
 		ArrayList<Character> characters = this.sdb.getCharacters();
-		Object[][] contents = new Object[characters.size()][7];
+		Object[][] contents = new Object[characters.size()][8];
 			for(int i = 0; i < characters.size(); i++) {
-				contents[i][0] = characters.get(i).getName();
-				contents[i][1] = characters.get(i).getLevel();
-				contents[i][2] = characters.get(i).getVocation();
-				contents[i][3] = characters.get(i).getStamina();
-				contents[i][4] = characters.get(i).getStatus();
-				contents[i][5] = characters.get(i).getBankBalance();
-				contents[i][6] = "x";
+				contents[i][0] = characters.get(i).getCharAcc().getAccId();
+				contents[i][1] = characters.get(i).getName();
+				contents[i][2] = characters.get(i).getLevel();
+				contents[i][3] = characters.get(i).getVocation();
+				contents[i][4] = characters.get(i).getStamina();
+				contents[i][5] = characters.get(i).getStatus();
+				contents[i][6] = characters.get(i).getBankBalance();
+				contents[i][7] = "x";
 			}
 			this.mainWindow.getTableCharacters().setModel(new DefaultTableModel(contents,
-			        new String[] {"Name", "Level", "Vocation", "Current Stamina", "Status", "Start Bank Balance", "Current Bank Balance"}));
+			        new String[] {"Acc ID", "Name", "Level", "Vocation", "Current Stamina", "Status", "Start Bank Balance", "Current Bank Balance"}));
 	}
 
 	public void refreshTables() {

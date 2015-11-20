@@ -15,13 +15,13 @@ import control.AccountController;
 import view.listener.CancelAccountDeletionBtnListener;
 import view.listener.ConfirmAccountDeletionBtnListener;
 
-public class ConfirmDeletionWindow extends JFrame {
+public class AccountConfirmDeletionWindow extends JFrame {
 
 	private AccountController accountController;
 	private int accID;
 	private JPanel contentPane;
 
-	public ConfirmDeletionWindow(AccountController accountController, int accID) {
+	public AccountConfirmDeletionWindow(AccountController accountController, int accID) {
 		setTitle("Delete");
 		this.accountController = accountController;
 		this.accID = accID;

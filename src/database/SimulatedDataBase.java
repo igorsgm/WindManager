@@ -71,9 +71,34 @@ public class SimulatedDataBase {
 		}
 		return accountCharacters;
 	}
+	
+	public Character getCharacterByName(String characterName) throws CharacterNotFoundException{
+		for(int i = 0; i <  this.characters.size(); i++){
+			if(this.characters.get(i).getName().equals(characterName)){
+				return this.characters.get(i);
+			}
+		}
+		throw new CharacterNotFoundException();
+	}
 
 	public void deleteAccount(int accID) throws AccountNotFoundException {
 		this.accounts.remove(this.getAccountByID(accID));
 		this.deleteAccountCharacters(accID);
+	}
+	
+	public void deleteCharacter(int characterAccID, String characterName) {
+		try {
+			this.getAccountByID(characterAccID).removeCharacter(this.getCharacterByName(characterName));
+		} catch (AccountNotFoundException | CharacterNotFoundException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+		try {
+			this.characters.remove(this.getCharacterByName(characterName));
+		} catch (CharacterNotFoundException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+
 	}
 }

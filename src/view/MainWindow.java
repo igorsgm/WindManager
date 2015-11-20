@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import control.AccountController;
 import view.listener.DeleteAccountBtnListener;
+import view.listener.DeleteCharacterBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
 
@@ -99,19 +100,16 @@ public class MainWindow extends JFrame {
 		characterListTab.add(scrollPane1);
 		
 		tableCharacters = new JTable();
-		this.modelTableCharacters = new DefaultTableModel(new Object[][] { {null, null, null, null, null, null, null},
-																	  {null, null, null, null, null, null, null},
-																	  {null, null, null, null, null, null, null} },
-																	  new String[] {"Name", "Level", "Vocation", "Current Stamina",
+		this.modelTableCharacters = new DefaultTableModel(new Object[][] { {null, null, null, null, null, null, null, null},
+																	  {null, null, null, null, null, null, null, null},
+																	  {null, null, null, null, null, null, null, null} },
+																	  new String[] {"Acc ID","Name", "Level", "Vocation", "Current Stamina",
 																					"Status", "Start Bank Balance", "Current Bank Balance"});
 		tableCharacters.setModel(modelTableCharacters);
 		scrollPane1.setViewportView(tableCharacters);
 		
 		JButton btnDeleteCharacter = new JButton("Delete Character");
-		btnDeleteCharacter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnDeleteCharacter.addActionListener(new DeleteCharacterBtnListener(this.accountController, this));
 		btnDeleteCharacter.setBounds(177, 6, 150, 40);
 		characterListTab.add(btnDeleteCharacter);
 		

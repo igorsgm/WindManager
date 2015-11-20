@@ -29,7 +29,7 @@ public class ConfirmAccountDeletionBtnListener implements ActionListener {
 			e1.getMessage();
 			e1.printStackTrace();
 		}
-		this.accountController.closeConfirmDeletionWindow();
+		this.accountController.closeAccountConfirmDeletionWindow();
 		this.accountController.refreshTables();
 		
 
