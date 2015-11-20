@@ -81,6 +81,7 @@ public class AccountController {
 		this.characterConfirmDeletionWindow = null;
 	}
 	
+	@SuppressWarnings("serial")
 	public void populateAccountTable() {
 		ArrayList<Account> accounts = this.getAccounts();
 		Object[][] contents = new Object[accounts.size()][5];
@@ -92,9 +93,20 @@ public class AccountController {
 				contents[i][4] = Arrays.toString(accounts.get(i).getCharacters().toArray()); 
 			}
 			this.mainWindow.getTableAccounts().setModel(new DefaultTableModel(contents,
-	        new String[] {"Account ID", "Account Name", "Password", "Ammout of Chars", "Chars Ready to Hunt"}));
+		            new String[] {
+		                    "Acc ID", "Account Name", "Password", "Amount Of Chars", "Chars Ready to Hunt"
+		                }
+		            ) {
+		                boolean[] columnEditables = new boolean[] {
+		                    false, false, false, false, false
+		                };
+		                public boolean isCellEditable(int row, int column) {
+		                    return columnEditables[column];
+		                }
+		            });
 	}
 
+	@SuppressWarnings("serial")
 	public void populateCharacterTable() {
 		ArrayList<Character> characters = this.sdb.getCharacters();
 		Object[][] contents = new Object[characters.size()][8];
@@ -109,7 +121,17 @@ public class AccountController {
 				contents[i][7] = "x";
 			}
 			this.mainWindow.getTableCharacters().setModel(new DefaultTableModel(contents,
-			        new String[] {"Acc ID", "Name", "Level", "Vocation", "Current Stamina", "Status", "Start Bank Balance", "Current Bank Balance"}));
+		            new String[] {
+		                    "Acc ID", "Name", "Level", "Vocation", "Stamina", "Status", "Start Bank Balance", "Current Bank Balance"
+		                }
+		            ) {
+		                boolean[] columnEditables = new boolean[] {
+		                    false, false, false, false, false, false, false, false
+		                };
+		                public boolean isCellEditable(int row, int column) {
+		                    return columnEditables[column];
+		                }
+		            });
 	}
 
 	public void refreshTables() {
