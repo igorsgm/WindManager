@@ -23,10 +23,8 @@ public class RegisterCharacterWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField characterName_TF;
 	private JTextField currentStamina_TF;
-	private JTextField currentLevel_TF;
 	private JTextField bankBalance_TF;
 	private JComboBox comboBoxAccounts;
-	private JComboBox comboBoxVocation;
 
 	public RegisterCharacterWindow(CharacterController characterController, AccountController accountController) {
 		this.characterController = characterController;
@@ -36,7 +34,7 @@ public class RegisterCharacterWindow extends JFrame {
 		setResizable(false);
 		setTitle("Add New Character");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 375, 310);
+		setBounds(100, 100, 375, 235);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,52 +61,28 @@ public class RegisterCharacterWindow extends JFrame {
 		contentPane.add(characterName_TF);
 		characterName_TF.setColumns(10);
 		
-		JLabel lblVocation = new JLabel("Vocation");
-		lblVocation.setBounds(16, 83, 106, 16);
-		contentPane.add(lblVocation);
-		
-		this.comboBoxVocation = new JComboBox();
-		contentPane.add(this.comboBoxVocation);
-		this.comboBoxVocation.setBounds(156, 79, 190, 27);
-		this.comboBoxVocation.addItem("Select a vocation");
-		this.comboBoxVocation.addItem("Knight");
-		this.comboBoxVocation.addItem("Paladin");
-		this.comboBoxVocation.addItem("Sorcerer");
-		this.comboBoxVocation.addItem("Druid");
-
-		
-		JLabel lblLevel = new JLabel("Current Level");
-		lblLevel.setBounds(16, 117, 106, 16);
-		lblLevel.setVerticalAlignment(SwingConstants.BOTTOM);
-		contentPane.add(lblLevel);
-		
-		currentLevel_TF = new JTextField();
-		currentLevel_TF.setBounds(156, 111, 190, 28);
-		currentLevel_TF.setColumns(10);
-		contentPane.add(currentLevel_TF);
-		
 		JLabel lblCurrentStamina = new JLabel("Current Stamina");
-		lblCurrentStamina.setBounds(16, 150, 106, 16);
+		lblCurrentStamina.setBounds(16, 83, 106, 16);
 		contentPane.add(lblCurrentStamina);
 		
 		currentStamina_TF = new JTextField();
-		currentStamina_TF.setBounds(156, 144, 190, 28);
+		currentStamina_TF.setBounds(156, 77, 190, 28);
 		currentStamina_TF.setColumns(10);
 		contentPane.add(currentStamina_TF);
 		
 		JLabel lblCurrentBankBalance = new JLabel("Current Bank Balance");
-		lblCurrentBankBalance.setBounds(16, 183, 136, 16);
+		lblCurrentBankBalance.setBounds(16, 111, 136, 16);
 		contentPane.add(lblCurrentBankBalance);
 		
 		bankBalance_TF = new JTextField();
-		bankBalance_TF.setBounds(156, 177, 190, 28);
+		bankBalance_TF.setBounds(156, 105, 190, 28);
 		bankBalance_TF.setToolTipText("Insert the quantity in gold coins (ex: 15000)");
 		contentPane.add(bankBalance_TF);
 		bankBalance_TF.setColumns(10);
 		
 		JButton btnConfirmRegisterCharacter = new JButton("Register Character");
 		btnConfirmRegisterCharacter.addActionListener(new RegisterCharacterBtnListener(this.characterController, this, this.accountController));
-		btnConfirmRegisterCharacter.setBounds(101, 229, 159, 40);
+		btnConfirmRegisterCharacter.setBounds(99, 145, 159, 40);
 		contentPane.add(btnConfirmRegisterCharacter);
 		
 	}
@@ -126,20 +100,12 @@ public class RegisterCharacterWindow extends JFrame {
 		}
 	}
 	
-	public String getVocationComboBoxValue() {
-		return this.comboBoxVocation.getSelectedItem().toString();
-	}
-	
 	public String getCharacterName_TF() {
 		return characterName_TF.getText();
 	}
 
 	public int getCurrentStamina_TF() {
 		return Integer.parseInt(currentStamina_TF.getText());
-	}
-
-	public int getCurrentLevel_TF() {
-		return Integer.parseInt(currentLevel_TF.getText());
 	}
 
 	public int getBankBalance_TF() {

@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -107,16 +108,16 @@ public class AccountController {
 	}
 
 	@SuppressWarnings("serial")
-	public void populateCharacterTable() {
+	public void populateCharacterTable() throws IOException {
 		ArrayList<Character> characters = this.sdb.getCharacters();
 		Object[][] contents = new Object[characters.size()][8];
 			for(int i = 0; i < characters.size(); i++) {
 				contents[i][0] = characters.get(i).getCharAcc().getAccId();
 				contents[i][1] = characters.get(i).getName();
-				contents[i][2] = characters.get(i).getLevel();
-				contents[i][3] = characters.get(i).getVocation();
+				contents[i][2] = this.characterController.WebPageInfoReader(characters.get(i).getName(), "Level");
+				contents[i][3] = this.characterController.WebPageInfoReader(characters.get(i).getName(), "Vocation");
 				contents[i][4] = characters.get(i).getStamina();
-				contents[i][5] = characters.get(i).getStatus();
+				contents[i][5] = this.characterController.WebPageCharacterStatusReader(this.characterController.WebPageInfoReader(characters.get(i).getName(), "World"), characters.get(i).getName());
 				contents[i][6] = characters.get(i).getBankBalance();
 				contents[i][7] = "x";
 			}
@@ -134,7 +135,7 @@ public class AccountController {
 		            });
 	}
 
-	public void refreshTables() {
+	public void refreshTables() throws IOException {
 		this.populateAccountTable();
 		this.populateCharacterTable();
 	}

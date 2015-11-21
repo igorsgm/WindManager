@@ -2,6 +2,7 @@ package view.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import control.AccountController;
 import exception.AccountNotFoundException;
@@ -23,7 +24,12 @@ public class ConfirmCharacterDeletionBtnListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		this.accountController.deleteCharacter(characterAccID, characterName);
 		this.accountController.closeCharacterConfirmDeletionWindow();
-		this.accountController.refreshTables();
+		try {
+			this.accountController.refreshTables();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 
 	}

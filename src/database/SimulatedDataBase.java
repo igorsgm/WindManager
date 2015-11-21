@@ -1,9 +1,15 @@
 package database;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JOptionPane;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import exception.AccountNotFoundException;
 import exception.CharacterNotFoundException;
@@ -101,4 +107,6 @@ public class SimulatedDataBase {
 		}
 
 	}
+	
+	
 }

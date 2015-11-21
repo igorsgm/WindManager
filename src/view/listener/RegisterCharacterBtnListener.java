@@ -2,6 +2,7 @@ package view.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import control.AccountController;
 import control.CharacterController;
@@ -27,13 +28,18 @@ public class RegisterCharacterBtnListener implements ActionListener {
 		try {
 			this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
 														  this.registerCharacterWindow.getCharacterName_TF(),
-														  this.registerCharacterWindow.getVocationComboBoxValue(),
+														  this.characterController.WebPageInfoReader(this.registerCharacterWindow.getCharacterName_TF(), "Vocation"),
 														  this.registerCharacterWindow.getCurrentStamina_TF(),
 														  this.registerCharacterWindow.getBankBalance_TF());
-		} catch (AccountNotFoundException e1) {
+		} catch (AccountNotFoundException | NumberFormatException | IOException e1) {
 			e1.getMessage();
 		}
-		this.accountController.populateCharacterTable();
+		try {
+			this.accountController.populateCharacterTable();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		this.accountController.populateAccountTable();
 		this.characterController.closeRegisterCharacterWindow();
 	}
