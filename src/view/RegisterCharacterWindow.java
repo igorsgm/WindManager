@@ -82,7 +82,7 @@ public class RegisterCharacterWindow extends JFrame {
 		
 		JButton btnConfirmRegisterCharacter = new JButton("Register Character");
 		btnConfirmRegisterCharacter.addActionListener(new RegisterCharacterBtnListener(this.characterController, this, this.accountController));
-		btnConfirmRegisterCharacter.setBounds(99, 145, 159, 40);
+		btnConfirmRegisterCharacter.setBounds(100, 150, 159, 40);
 		contentPane.add(btnConfirmRegisterCharacter);
 		
 	}

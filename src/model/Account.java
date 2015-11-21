@@ -1,7 +1,9 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import model.Character;
+import helper.WebsiteReader;
 
 public class Account {
 	
@@ -11,7 +13,7 @@ public class Account {
 	private String accPassword; //password
 	private ArrayList<Character> characters;
 	private ArrayList<Character> charactersAvaliableToHunt; //ammount of avaliable chars to hunt: stamina > x
-	private boolean premium; // is premium account?
+	private String accStatus; // is premium account?
 
 	//Constructor method
 	public Account(int accId, String accName, String accPassword){
@@ -40,12 +42,22 @@ public class Account {
 	public void setAccPassword(String accPassword) {
 		this.accPassword = accPassword;
 	}
-	public boolean isPremium() {
-		return premium;
+
+	public String getAccStatus() {
+		/*checking if one character of this account is premium
+		* in website, "status" is Premium Account/Free Account
+		*/
+		WebsiteReader webpageReader = new WebsiteReader(this.characters.get(0).getName(), "Status");
+		try {
+			this.setAccStatus(webpageReader.characterInfoReader());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return accStatus;
 	}
 
-	public void setPremium(boolean premium) {
-		this.premium = premium;
+	public void setAccStatus(String accStatus) {
+		this.accStatus = accStatus;
 	}
 
 	public ArrayList<Character> getCharacters() {

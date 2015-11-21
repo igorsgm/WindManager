@@ -1,5 +1,8 @@
 package model;
 
+import java.io.IOException;
+
+import helper.WebsiteReader;
 
 public class Character {
 
@@ -7,6 +10,7 @@ public class Character {
 	private Account charAcc;	// account id the character belongs - ex: acc 1, 2, 3
 	private String name;
 	private int level;			// current level
+	private String world;
 	private int weaponSkill;
 	private int shieldSkill;
 	private String vocation;
@@ -41,11 +45,31 @@ public class Character {
 	}
 
 	public int getLevel() {
+		WebsiteReader websiteReader = new WebsiteReader(this.getName(), "Level");
+		try {
+			this.setLevel(Integer.parseInt(websiteReader.characterInfoReader()));
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		return level;
 	}
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public String getWorld() {
+		WebsiteReader websiteReader = new WebsiteReader(this.getName(), "World");
+		try {
+			this.setWorld(websiteReader.characterInfoReader());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return world;
+	}
+
+	public void setWorld(String world) {
+		this.world = world;
 	}
 
 	public int getWeaponSkill() {
@@ -64,7 +88,13 @@ public class Character {
 		this.shieldSkill = shieldSkill;
 	}
 
-	public String getVocation() {
+	public String getVocation() throws IOException {
+		WebsiteReader websiteReader = new WebsiteReader(this.getName(), "Vocation");
+		try {
+			this.setVocation(websiteReader.characterInfoReader());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return vocation;
 	}
 
@@ -72,7 +102,13 @@ public class Character {
 		this.vocation = vocation;
 	}
 
-	public String getStatus() {
+	public String getStatus() throws IOException {
+		WebsiteReader websiteReader = new WebsiteReader(this.getName());
+		try {
+			this.setStatus(websiteReader.characterStatusReader());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return status;
 	}
 
@@ -99,7 +135,5 @@ public class Character {
 	public String toString(){
 		return this.getName();
 	}
-
-
 
 }

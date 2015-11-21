@@ -17,7 +17,7 @@ import view.MainWindow;
 import view.RegisterAccountWindow;
 
 public class AccountController {
-	//Attributes
+	
 	private SimulatedDataBase sdb;
 	private RegisterAccountWindow registerAccountWindow;
 	private CharacterController characterController;
@@ -25,7 +25,6 @@ public class AccountController {
 	private AccountConfirmDeletionWindow accountConfirmDeletionWindow;
 	private CharacterConfirmDeletionWindow characterConfirmDeletionWindow;
 	
-	//Constructors
 	public AccountController(){
 		this.sdb = new SimulatedDataBase();
 		this.characterController = new CharacterController(this.sdb, this);
@@ -35,8 +34,7 @@ public class AccountController {
 	public ArrayList<Account> getAccounts() {
 		return this.sdb.getAccounts();
 	}
-
-	//Methods	
+	
 	public void createRegisterAccountWindow() {
 		this.registerAccountWindow = new RegisterAccountWindow(this);
 	}
@@ -87,10 +85,10 @@ public class AccountController {
 		ArrayList<Account> accounts = this.getAccounts();
 		Object[][] contents = new Object[accounts.size()][5];
 			for(int i = 0; i < accounts.size(); i++) {
-				contents[i][0] = accounts.get(i).getAccId();
-				contents[i][1] = accounts.get(i).getAccName(); 
-				contents[i][2] = accounts.get(i).getAccPassword();
-				contents[i][3] = Arrays.toString(accounts.get(i).getCharacters().toArray());
+				/*AccID*/		contents[i][0] = accounts.get(i).getAccId();
+				/*Acc Name*/	contents[i][1] = accounts.get(i).getAccName(); 
+				/*Password*/	contents[i][2] = accounts.get(i).getAccPassword();
+				/**/		contents[i][3] = Arrays.toString(accounts.get(i).getCharacters().toArray());
 				contents[i][4] = Arrays.toString(accounts.get(i).getCharacters().toArray()); 
 			}
 			this.mainWindow.getTableAccounts().setModel(new DefaultTableModel(contents,
@@ -112,14 +110,14 @@ public class AccountController {
 		ArrayList<Character> characters = this.sdb.getCharacters();
 		Object[][] contents = new Object[characters.size()][8];
 			for(int i = 0; i < characters.size(); i++) {
-				contents[i][0] = characters.get(i).getCharAcc().getAccId();
-				contents[i][1] = characters.get(i).getName();
-				contents[i][2] = this.characterController.WebPageInfoReader(characters.get(i).getName(), "Level");
-				contents[i][3] = this.characterController.WebPageInfoReader(characters.get(i).getName(), "Vocation");
-				contents[i][4] = characters.get(i).getStamina();
-				contents[i][5] = this.characterController.WebPageCharacterStatusReader(this.characterController.WebPageInfoReader(characters.get(i).getName(), "World"), characters.get(i).getName());
-				contents[i][6] = characters.get(i).getBankBalance();
-				contents[i][7] = "x";
+				/*AccID*/		contents[i][0] = characters.get(i).getCharAcc().getAccId();
+				/*Name*/		contents[i][1] = characters.get(i).getName();
+				/*Level*/		contents[i][2] = characters.get(i).getLevel();
+				/*Vocation*/	contents[i][3] = characters.get(i).getVocation();
+				/*Stamina*/		contents[i][4] = characters.get(i).getStamina();
+				/*Status*/		contents[i][5] = characters.get(i).getStatus();
+				/*BankBalance*/	contents[i][6] = characters.get(i).getBankBalance();
+								contents[i][7] = "x";
 			}
 			this.mainWindow.getTableCharacters().setModel(new DefaultTableModel(contents,
 		            new String[] {

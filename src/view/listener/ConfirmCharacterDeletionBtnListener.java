@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import control.AccountController;
-import exception.AccountNotFoundException;
-import exception.CharacterNotFoundException;
 
 public class ConfirmCharacterDeletionBtnListener implements ActionListener {
 
