@@ -25,7 +25,7 @@ public class CharacterController {
 		this.sdb = sdb;
 		this.accountController = accountController;
 	}
-	
+
 	public ArrayList<Account> getAccounts() {
 		return this.sdb.getAccounts();
 	}
@@ -54,7 +54,7 @@ public class CharacterController {
 		//Connecting to de website
 		Document doc = Jsoup.connect("http://www.tibia.com/community/?subtopic=characters&name=" + characterName).userAgent("Mozilla").get();
 		//Searching for some specific Field, eg "Level:"
-		Elements result = doc.select("*:containsOwn(" + fieldRequired +")");
+		Elements result = doc.select("*:containsOwn(" + fieldRequired +":)");
 		//Getting results and returning the next elemen, that is the information
 		for( Element e : result )
 		{
