@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import database.SimulatedDataBase;
 import exception.AccountNotFoundException;
@@ -15,6 +16,7 @@ import view.AccountConfirmDeletionWindow;
 import view.CharacterConfirmDeletionWindow;
 import view.MainWindow;
 import view.RegisterAccountWindow;
+import view.listener.TableFilterListener;
 
 public class AccountController {
 	
@@ -62,7 +64,6 @@ public class AccountController {
 	
 	public void deleteCharacter(int characterAccID, String characterName) {
 		this.sdb.deleteCharacter(characterAccID, characterName);
-		
 	}
 	
 	public void closeRegisterAccountWindow() {
@@ -78,6 +79,11 @@ public class AccountController {
 	public void closeCharacterConfirmDeletionWindow() {
 		this.characterConfirmDeletionWindow.setVisible(false);
 		this.characterConfirmDeletionWindow = null;
+	}
+	
+	public void refreshTables() throws IOException {
+		this.populateAccountTable();
+		this.populateCharacterTable();
 	}
 	
 	@SuppressWarnings("serial")
@@ -103,6 +109,12 @@ public class AccountController {
 		                    return columnEditables[column];
 		                }
 		            });
+			/*
+			 * Enabling dynamical Account filter by text after populating
+			 * */
+			this.mainWindow.setAccountRowSorter(new TableRowSorter<>(this.mainWindow.getTableAccounts().getModel()));
+	        this.mainWindow.getTableAccounts().setRowSorter(this.mainWindow.getAccountRowSorter());
+			this.mainWindow.getAccountFilter_TF().getDocument().addDocumentListener(new TableFilterListener(this.mainWindow.getAccountFilter_TF(), this.mainWindow.getAccountRowSorter()));
 	}
 
 	@SuppressWarnings("serial")
@@ -131,11 +143,12 @@ public class AccountController {
 		                    return columnEditables[column];
 		                }
 		            });
-	}
-
-	public void refreshTables() throws IOException {
-		this.populateAccountTable();
-		this.populateCharacterTable();
+			/*
+			 * Enabling dynamical Character filter by text after populating
+			 * */
+			this.mainWindow.setCharacterRowSorter(new TableRowSorter<>(this.mainWindow.getTableCharacters().getModel()));
+	        this.mainWindow.getTableCharacters().setRowSorter(this.mainWindow.getCharacterRowSorter());
+			this.mainWindow.getCharacterFilter_TF().getDocument().addDocumentListener(new TableFilterListener(this.mainWindow.getCharacterFilter_TF(), this.mainWindow.getCharacterRowSorter()));
 	}
 
 }

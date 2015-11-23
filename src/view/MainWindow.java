@@ -1,26 +1,26 @@
 package view;
 
-import java.util.ArrayList;
-
-import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import control.AccountController;
 import view.listener.DeleteAccountBtnListener;
 import view.listener.DeleteCharacterBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
-@SuppressWarnings("serial")
+
 public class MainWindow extends JFrame {
     private AccountController accountController;
     private JPanel contentPane;
@@ -28,6 +28,10 @@ public class MainWindow extends JFrame {
     private JTable tableCharacters;
     private DefaultTableModel modelTableAccounts;
     private DefaultTableModel modelTableCharacters;
+    private JTextField characterFilter_TF;
+    private JTextField accountFilter_TF;
+    private TableRowSorter<TableModel> characterRowSorter;
+    private TableRowSorter<TableModel> accountRowSorter;
 
     public MainWindow(AccountController accountController) {
        
@@ -60,6 +64,8 @@ public class MainWindow extends JFrame {
         scrollPane.setBounds(15, 58, 835, 445);
         accountsTab.add(scrollPane);
        
+        
+        
         tableAccounts = new JTable();
         tableAccounts.setModel(new DefaultTableModel(
             new Object[][] {
@@ -85,19 +91,21 @@ public class MainWindow extends JFrame {
         tableAccounts.getColumnModel().getColumn(3).setResizable(false);
         tableAccounts.getColumnModel().getColumn(4).setResizable(false);
         scrollPane.setViewportView(tableAccounts);
-        
-        //Setting column order
-        tableAccounts.setAutoCreateRowSorter(true);
-        DefaultRowSorter sorter = ((DefaultRowSorter)tableAccounts.getRowSorter());
-        ArrayList list = new ArrayList();
-        list.add( new RowSorter.SortKey(2, SortOrder.ASCENDING) );
-        sorter.setSortKeys(list);
-        sorter.sort();
        
         JButton btnDeleteAccount = new JButton("Delete Account");
         accountsTab.add(btnDeleteAccount);
         btnDeleteAccount.addActionListener(new DeleteAccountBtnListener(this.accountController, this));
         btnDeleteAccount.setBounds(187, 6, 150, 40);
+        
+        this.accountFilter_TF = new JTextField();
+        this.accountFilter_TF.setColumns(10);
+        this.accountFilter_TF.setBounds(620, 11, 230, 35);
+        accountsTab.add(accountFilter_TF);
+        
+        JLabel label = new JLabel("");
+        label.setIcon(new ImageIcon(MainWindow.class.getResource("/images/search-icon.png")));
+        label.setBounds(586, 11, 32, 35);
+        accountsTab.add(label);
        
        
         /*
@@ -111,13 +119,22 @@ public class MainWindow extends JFrame {
         btnRegister.addActionListener(new RegisterCharacterListener(this.accountController));
         btnRegister.setBounds(15, 6, 150, 40);
         characterListTab.add(btnRegister);
+        
+        this.characterFilter_TF = new JTextField();
+        this.characterFilter_TF.setBounds(620, 11, 230, 35);
+        characterListTab.add(characterFilter_TF);
+        
+        JLabel label1 = new JLabel("");
+        label1.setIcon(new ImageIcon(MainWindow.class.getResource("/images/search-icon.png")));
+        label1.setBounds(586, 11, 32, 35);
+        characterListTab.add(label1);
 
         JScrollPane scrollPane1 = new JScrollPane();
         scrollPane1.setBounds(15, 58, 835, 445);
         characterListTab.add(scrollPane1);
-       
-        tableCharacters = new JTable();
-        tableCharacters.setModel(new DefaultTableModel(
+        
+        this.tableCharacters = new JTable();
+        this.tableCharacters.setModel(new DefaultTableModel(
             new Object[][] {
                 //lines here
             },
@@ -133,26 +150,19 @@ public class MainWindow extends JFrame {
             }
         });
         
-        //Setting column order
-        tableCharacters.setAutoCreateRowSorter(true);
-        DefaultRowSorter sorter2 = ((DefaultRowSorter)tableCharacters.getRowSorter());
-        ArrayList list2 = new ArrayList();
-        list2.add( new RowSorter.SortKey(2, SortOrder.ASCENDING) );
-        sorter.setSortKeys(list);
-        sorter.sort();
+        //this.characterRowSorter = new TableRowSorter<>(tableCharacters.getModel());
+        //this.tableCharacters.setRowSorter(this.characterRowSorter);
+        //characterFilter_TF.getDocument().addDocumentListener(new TableFilterListener(this.characterFilter_TF, this.characterRowSorter));
+        
         
         //Columns properties
         tableCharacters.getColumnModel().getColumn(0).setResizable(false);
         tableCharacters.getColumnModel().getColumn(0).setMaxWidth(45);
         tableCharacters.getColumnModel().getColumn(1).setResizable(false);
         tableCharacters.getColumnModel().getColumn(2).setResizable(false);
-        //tableCharacters.getColumnModel().getColumn(2).setMaxWidth(70);
         tableCharacters.getColumnModel().getColumn(3).setResizable(false);
-        //tableCharacters.getColumnModel().getColumn(3).setMaxWidth(110);
         tableCharacters.getColumnModel().getColumn(4).setResizable(false);
-        //tableCharacters.getColumnModel().getColumn(4).setMaxWidth(110);
         tableCharacters.getColumnModel().getColumn(5).setResizable(false);
-        //tableCharacters.getColumnModel().getColumn(5).setMaxWidth(95);
         tableCharacters.getColumnModel().getColumn(6).setResizable(false);
         tableCharacters.getColumnModel().getColumn(7).setResizable(false);
         scrollPane1.setViewportView(tableCharacters);
@@ -179,6 +189,28 @@ public class MainWindow extends JFrame {
     public DefaultTableModel getModelTableCharacters() {
         return modelTableCharacters;
     }
-   
 
+	public JTextField getCharacterFilter_TF() {
+		return characterFilter_TF;
+	}
+
+	public JTextField getAccountFilter_TF() {
+		return accountFilter_TF;
+	}
+
+	public TableRowSorter<TableModel> getCharacterRowSorter() {
+		return characterRowSorter;
+	}
+
+	public void setCharacterRowSorter(TableRowSorter<TableModel> characterRowSorter) {
+		this.characterRowSorter = characterRowSorter;
+	}
+
+	public TableRowSorter<TableModel> getAccountRowSorter() {
+		return accountRowSorter;
+	}
+
+	public void setAccountRowSorter(TableRowSorter<TableModel> accountRowSorter) {
+		this.accountRowSorter = accountRowSorter;
+	}
 }

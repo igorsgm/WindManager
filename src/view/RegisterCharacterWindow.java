@@ -72,7 +72,7 @@ public class RegisterCharacterWindow extends JFrame {
 		currentStamina_TF.setColumns(10);
 		contentPane.add(currentStamina_TF);
 		
-		JLabel lblCurrentBankBalance = new JLabel("Current Bank Balance");
+		JLabel lblCurrentBankBalance = new JLabel("Start Bank Balance");
 		lblCurrentBankBalance.setBounds(16, 111, 136, 16);
 		contentPane.add(lblCurrentBankBalance);
 		
