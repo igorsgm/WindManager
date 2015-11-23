@@ -15,6 +15,7 @@ import control.AccountController;
 import view.listener.CancelCharacterDeletionBtnListener;
 import view.listener.ConfirmCharacterDeletionBtnListener;
 
+@SuppressWarnings("serial")
 public class CharacterConfirmDeletionWindow extends JFrame {
 
 	private AccountController accountController;

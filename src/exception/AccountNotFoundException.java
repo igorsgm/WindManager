@@ -1,5 +1,6 @@
 package exception;
 
+@SuppressWarnings("serial")
 public class AccountNotFoundException extends Exception {
 
 	private String message;

@@ -24,7 +24,7 @@ public class WebsiteReader {
 	}
 
 	public String characterInfoReader() throws IOException{
-		//Connecting to de website
+		//Connecting to the website
 		Document doc = Jsoup.connect("http://www.tibia.com/community/?subtopic=characters&name=" + this.characterToSearch).userAgent("Mozilla").get();
 		
 		//Searching for some specific Field, eg "Level:"

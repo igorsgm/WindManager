@@ -1,5 +1,6 @@
 package exception;
 
+@SuppressWarnings("serial")
 public class CharacterNotFoundException extends Exception {
 
 	private String message;

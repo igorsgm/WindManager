@@ -1,18 +1,16 @@
 package view;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +20,7 @@ import view.listener.DeleteCharacterBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
     private AccountController accountController;
     private JPanel contentPane;
@@ -30,11 +29,11 @@ public class MainWindow extends JFrame {
     private DefaultTableModel modelTableAccounts;
     private DefaultTableModel modelTableCharacters;
 
-    @SuppressWarnings("serial")
-	public MainWindow(AccountController accountController) {
+    public MainWindow(AccountController accountController) {
        
         this.accountController = accountController;
         setVisible(true);
+        setResizable(false);
         setTitle("WindManager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 600);
@@ -58,7 +57,7 @@ public class MainWindow extends JFrame {
         accountsTab.add(btnRegisterAccount);
        
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(15, 58, 600, 445);
+        scrollPane.setBounds(15, 58, 835, 445);
         accountsTab.add(scrollPane);
        
         tableAccounts = new JTable();
@@ -77,6 +76,8 @@ public class MainWindow extends JFrame {
                 return columnEditables[column];
             }
         });
+        
+        //Columns properties 
         tableAccounts.getColumnModel().getColumn(0).setResizable(false);
         tableAccounts.getColumnModel().getColumn(0).setMaxWidth(45);
         tableAccounts.getColumnModel().getColumn(1).setResizable(false);
@@ -84,16 +85,14 @@ public class MainWindow extends JFrame {
         tableAccounts.getColumnModel().getColumn(3).setResizable(false);
         tableAccounts.getColumnModel().getColumn(4).setResizable(false);
         scrollPane.setViewportView(tableAccounts);
-       
-        JTextArea textArea = new JTextArea();
-        textArea.setBounds(627, 78, 223, 426);
-        accountsTab.add(textArea);
-       
-        JLabel lblAccountInformation = new JLabel("Account Information");
-        lblAccountInformation.setHorizontalAlignment(SwingConstants.CENTER);
-        lblAccountInformation.setBackground(Color.BLACK);
-        lblAccountInformation.setBounds(627, 59, 223, 16);
-        accountsTab.add(lblAccountInformation);
+        
+        //Setting column order
+        tableAccounts.setAutoCreateRowSorter(true);
+        DefaultRowSorter sorter = ((DefaultRowSorter)tableAccounts.getRowSorter());
+        ArrayList list = new ArrayList();
+        list.add( new RowSorter.SortKey(2, SortOrder.ASCENDING) );
+        sorter.setSortKeys(list);
+        sorter.sort();
        
         JButton btnDeleteAccount = new JButton("Delete Account");
         accountsTab.add(btnDeleteAccount);
@@ -101,7 +100,9 @@ public class MainWindow extends JFrame {
         btnDeleteAccount.setBounds(187, 6, 150, 40);
        
        
-        //Character List Tab
+        /*
+         * Character List Tab
+         */
         JPanel characterListTab = new JPanel();
         tabbedPane.addTab("Character List", null, characterListTab, null);
         characterListTab.setLayout(null);
@@ -112,7 +113,7 @@ public class MainWindow extends JFrame {
         characterListTab.add(btnRegister);
 
         JScrollPane scrollPane1 = new JScrollPane();
-        scrollPane1.setBounds(15, 58, 834, 445);
+        scrollPane1.setBounds(15, 58, 835, 445);
         characterListTab.add(scrollPane1);
        
         tableCharacters = new JTable();
@@ -131,6 +132,16 @@ public class MainWindow extends JFrame {
                 return columnEditables[column];
             }
         });
+        
+        //Setting column order
+        tableCharacters.setAutoCreateRowSorter(true);
+        DefaultRowSorter sorter2 = ((DefaultRowSorter)tableCharacters.getRowSorter());
+        ArrayList list2 = new ArrayList();
+        list2.add( new RowSorter.SortKey(2, SortOrder.ASCENDING) );
+        sorter.setSortKeys(list);
+        sorter.sort();
+        
+        //Columns properties
         tableCharacters.getColumnModel().getColumn(0).setResizable(false);
         tableCharacters.getColumnModel().getColumn(0).setMaxWidth(45);
         tableCharacters.getColumnModel().getColumn(1).setResizable(false);

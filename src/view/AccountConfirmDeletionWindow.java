@@ -15,6 +15,7 @@ import control.AccountController;
 import view.listener.CancelAccountDeletionBtnListener;
 import view.listener.ConfirmAccountDeletionBtnListener;
 
+@SuppressWarnings("serial")
 public class AccountConfirmDeletionWindow extends JFrame {
 
 	private AccountController accountController;

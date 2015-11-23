@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import control.AccountController;
 import view.listener.RegisterAccountBtnListener;
 
+@SuppressWarnings("serial")
 public class RegisterAccountWindow extends JFrame {
 	
 	private AccountController accountController;

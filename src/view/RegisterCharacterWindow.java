@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import control.AccountController;
@@ -16,6 +15,7 @@ import control.CharacterController;
 import model.Account;
 import view.listener.RegisterCharacterBtnListener;
 
+@SuppressWarnings("serial")
 public class RegisterCharacterWindow extends JFrame {
 
 	private CharacterController characterController;
@@ -24,8 +24,10 @@ public class RegisterCharacterWindow extends JFrame {
 	private JTextField characterName_TF;
 	private JTextField currentStamina_TF;
 	private JTextField bankBalance_TF;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxAccounts;
 
+	@SuppressWarnings("rawtypes")
 	public RegisterCharacterWindow(CharacterController characterController, AccountController accountController) {
 		this.characterController = characterController;
 		this.accountController = accountController;
@@ -92,6 +94,7 @@ public class RegisterCharacterWindow extends JFrame {
 		return Integer.parseInt(this.comboBoxAccounts.getSelectedItem().toString());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void populateAccountComboBox(ArrayList<Account> accounts) {
 		this.comboBoxAccounts.removeAllItems();
 		this.comboBoxAccounts.addItem("Select an account");
