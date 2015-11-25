@@ -16,11 +16,14 @@ import javax.swing.table.TableRowSorter;
 
 import control.AccountController;
 import control.CharacterController;
+import view.listener.ChangePasswordBtnListener;
 import view.listener.DeleteAccountBtnListener;
 import view.listener.DeleteCharacterBtnListener;
 import view.listener.EditCharacterInfoBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class MainWindow extends JFrame {
@@ -110,6 +113,11 @@ public class MainWindow extends JFrame {
         label.setIcon(new ImageIcon(MainWindow.class.getResource("/images/search-icon.png")));
         label.setBounds(586, 11, 32, 35);
         accountsTab.add(label);
+        
+        JButton btnChangePassword = new JButton("Change Password");
+        btnChangePassword.addActionListener(new ChangePasswordBtnListener(this, this.accountController));
+        btnChangePassword.setBounds(349, 6, 150, 40);
+        accountsTab.add(btnChangePassword);
        
        
         /*

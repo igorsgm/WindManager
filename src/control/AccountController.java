@@ -13,6 +13,7 @@ import exception.CharacterNotFoundException;
 import model.Account;
 import model.Character;
 import view.AccountConfirmDeletionWindow;
+import view.ChangePasswordWindow;
 import view.MainWindow;
 import view.RegisterAccountWindow;
 import view.listener.TableFilterListener;
@@ -24,6 +25,7 @@ public class AccountController {
 	private CharacterController characterController;
 	private MainWindow mainWindow;
 	private AccountConfirmDeletionWindow accountConfirmDeletionWindow;
+	private ChangePasswordWindow changePasswordWindow;
 	
 	public AccountController(){
 		this.sdb = new SimulatedDataBase();
@@ -41,6 +43,10 @@ public class AccountController {
 
 	public void createAccountConfirmDeletionWindow(int accID) {
 		this.accountConfirmDeletionWindow = new AccountConfirmDeletionWindow(this, accID);
+	}
+	
+	public void createChangePasswordWindow(int accID, String accountName) {
+		this.changePasswordWindow = new ChangePasswordWindow(this, this.characterController, accID, accountName);
 	}
 
 	public void registerNewAccount(int accountID, String accountName, String password) {
@@ -60,6 +66,11 @@ public class AccountController {
 	public void closeAccountConfirmDeletionWindow() {
 		this.accountConfirmDeletionWindow.setVisible(false);
 		this.accountConfirmDeletionWindow = null;
+	}
+	
+	public void closeChangePasswordWindow() {
+		this.changePasswordWindow.setVisible(false);
+		this.changePasswordWindow = null;
 	}
 	
 	public void refreshTables() throws IOException {
@@ -130,5 +141,7 @@ public class AccountController {
 	        this.mainWindow.getTableCharacters().setRowSorter(this.mainWindow.getCharacterRowSorter());
 			this.mainWindow.getCharacterFilter_TF().getDocument().addDocumentListener(new TableFilterListener(this.mainWindow.getCharacterFilter_TF(), this.mainWindow.getCharacterRowSorter()));
 	}
+	
+	
 
 }
