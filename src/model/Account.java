@@ -2,7 +2,7 @@ package model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import model.Character;
+
 import helper.WebsiteReader;
 
 public class Account {
@@ -13,6 +13,7 @@ public class Account {
 	private String accPassword; //password
 	private ArrayList<Character> characters;
 	private ArrayList<Character> charactersAvaliableToHunt; //ammount of avaliable chars to hunt: stamina > x
+	private int amountOfChars;
 	private String accStatus; // is premium account?
 
 	//Constructor method
@@ -22,6 +23,16 @@ public class Account {
 		this.setAccPassword(accPassword);
 		this.characters = new ArrayList<Character>();
 	}
+	
+//	public Account(int accId, String accStatus, String accName, String accPassword, int amountOfChars, ArrayList<Character> charactersAvaliableToHunt){
+//		this.setAccId(accId);
+//		this.setAccStatus(accStatus);
+//		this.setAccName(accName);
+//		this.setAccPassword(accPassword);
+//		this.setAmountOfChars(amountOfChars);
+//		this.setCharactersAvaliableToHunt(charactersAvaliableToHunt);
+//	}
+	
 
 	//Getters and setters
 	public int getAccId() {
@@ -43,17 +54,20 @@ public class Account {
 		this.accPassword = accPassword;
 	}
 
-	public String getAccStatus() {
+	public String getAccStatus(){
 		/*checking if one character of this account is premium
 		* in website, "status" is Premium Account/Free Account
 		*/
-		WebsiteReader webpageReader = new WebsiteReader(this.characters.get(0).getName(), "Status");
-		try {
-			this.setAccStatus(webpageReader.characterInfoReader());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (! this.characters.isEmpty()){
+			WebsiteReader webpageReader = new WebsiteReader(this.characters.get(0).getName(), "Status");
+			try {
+				this.setAccStatus(webpageReader.characterInfoReader());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return accStatus;
 		}
-		return accStatus;
+		return "Free Account";
 	}
 
 	public void setAccStatus(String accStatus) {
@@ -85,6 +99,14 @@ public class Account {
 	
 	public String getCharactersNames(){
 		return this.getCharacters().toString();
+	}
+
+	public int getAmountOfChars() {
+		return amountOfChars;
+	}
+
+	public void setAmountOfChars(int amountOfChars) {
+		this.amountOfChars = amountOfChars;
 	}
 	
 	

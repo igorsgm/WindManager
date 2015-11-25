@@ -77,11 +77,11 @@ public class MainWindow extends JFrame {
                 //lines here
             },
             new String[] {
-                "Acc ID", "Account Name", "Password", "Amount Of Chars", "Chars Ready to Hunt"
+                "Acc ID", "Status", "Account Name", "Password","Amount Of Chars", "Chars Ready to Hunt"
             }
         ) {
             boolean[] columnEditables = new boolean[] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
             public boolean isCellEditable(int row, int column) {
                 return columnEditables[column];

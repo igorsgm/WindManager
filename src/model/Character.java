@@ -26,6 +26,15 @@ public class Character {
 		this.setStamina(currentStamina);
 		this.setBankBalance(bankBalance);
 	}
+	
+	public Character(Account charAcc, String name, int level, String vocation, int currentStamina, int bankBalance){
+		this.setCharAcc(charAcc);
+		this.setName(name);
+		this.setLevel(level);
+		this.setVocation(vocation);
+		this.setStamina(currentStamina);
+		this.setBankBalance(bankBalance);
+	}
 
 	//Getters and setters
 	public Account getCharAcc() {

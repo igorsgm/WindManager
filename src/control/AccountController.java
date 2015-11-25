@@ -31,6 +31,12 @@ public class AccountController {
 		this.sdb = new SimulatedDataBase();
 		this.characterController = new CharacterController(this.sdb, this);
 		this.mainWindow = new MainWindow(this, this.characterController);
+		try {
+			this.refreshTables();
+			this.populateAccountTable();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public ArrayList<Account> getAccounts() {
@@ -81,21 +87,22 @@ public class AccountController {
 	@SuppressWarnings("serial")
 	public void populateAccountTable() {
 		ArrayList<Account> accounts = this.getAccounts();
-		Object[][] contents = new Object[accounts.size()][5];
+		Object[][] contents = new Object[accounts.size()][6];
 			for(int i = 0; i < accounts.size(); i++) {
-				/*AccID*/		contents[i][0] = accounts.get(i).getAccId();
-				/*Acc Name*/	contents[i][1] = accounts.get(i).getAccName(); 
-				/*Password*/	contents[i][2] = accounts.get(i).getAccPassword();
-				/**/		contents[i][3] = Arrays.toString(accounts.get(i).getCharacters().toArray());
-				contents[i][4] = Arrays.toString(accounts.get(i).getCharacters().toArray()); 
+				contents[i][0] = accounts.get(i).getAccId();
+				contents[i][1] = accounts.get(i).getAccStatus();
+				contents[i][2] = accounts.get(i).getAccName();
+				contents[i][3] = accounts.get(i).getAccPassword();
+				contents[i][4] = accounts.get(i).getCharacters().size();
+				contents[i][5] = Arrays.toString(accounts.get(i).getCharacters().toArray());
 			}
 			this.mainWindow.getTableAccounts().setModel(new DefaultTableModel(contents,
 		            new String[] {
-		                    "Acc ID", "Account Name", "Password", "Amount Of Chars", "Chars Ready to Hunt"
+		                    "Acc ID", "Status", "Account Name", "Password", "Amount Of Chars", "Chars Ready to Hunt"
 		                }
 		            ) {
 		                boolean[] columnEditables = new boolean[] {
-		                    false, false, false, false, false
+		                    false, false, false, false, false, false
 		                };
 		                public boolean isCellEditable(int row, int column) {
 		                    return columnEditables[column];
