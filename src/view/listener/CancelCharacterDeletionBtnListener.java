@@ -3,19 +3,19 @@ package view.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import control.AccountController;
+import control.CharacterController;
 
 public class CancelCharacterDeletionBtnListener implements ActionListener {
 
-	private AccountController accountController;
+	private CharacterController characterController;
 	
-	public CancelCharacterDeletionBtnListener(AccountController accountController){
-		this.accountController = accountController;
+	public CancelCharacterDeletionBtnListener(CharacterController characterController){
+		this.characterController = characterController;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.accountController.closeCharacterConfirmDeletionWindow();
+		this.characterController.closeCharacterConfirmDeletionWindow();
 	}
 
 }

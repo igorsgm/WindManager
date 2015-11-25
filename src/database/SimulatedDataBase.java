@@ -12,13 +12,13 @@ public class SimulatedDataBase {
 	public ArrayList<Account> accounts;
 	public ArrayList<Character> characters;
 	
-	//Constructors
+
 	public SimulatedDataBase(){
 		this.accounts = new ArrayList<Account>();
 		this.characters = new ArrayList<Character>();
 	}
 	
-	//Methods
+
 	public void saveAccount(Account acc){
 		this.accounts.add(acc);
 	}
@@ -28,7 +28,7 @@ public class SimulatedDataBase {
 		this.characters.add(character);
 	}
 	
-	//Getters
+
 	public ArrayList<Account> getAccounts() {
 		return accounts;
 	}
@@ -98,6 +98,8 @@ public class SimulatedDataBase {
 		}
 
 	}
+	
+	
 	
 	
 }

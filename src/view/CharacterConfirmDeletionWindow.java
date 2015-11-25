@@ -11,21 +11,21 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import control.AccountController;
+import control.CharacterController;
 import view.listener.CancelCharacterDeletionBtnListener;
 import view.listener.ConfirmCharacterDeletionBtnListener;
 
 @SuppressWarnings("serial")
 public class CharacterConfirmDeletionWindow extends JFrame {
 
-	private AccountController accountController;
+	private CharacterController characterController;
 	private String characterName;
 	private int characterAccID;
 	private JPanel contentPane;
 
-	public CharacterConfirmDeletionWindow(AccountController accountController, int characterAccID, String characterName) {
+	public CharacterConfirmDeletionWindow(CharacterController characterController, int characterAccID, String characterName) {
 		setTitle("Delete Character");
-		this.accountController = accountController;
+		this.characterController = characterController;
 		this.characterAccID = characterAccID;
 		this.characterName = characterName;
 		setVisible(true);
@@ -43,13 +43,13 @@ public class CharacterConfirmDeletionWindow extends JFrame {
 		contentPane.add(warningLbl);
 		
 		JButton cancelCharacterDeletionBtn = new JButton("NO");
-		cancelCharacterDeletionBtn.addActionListener(new CancelCharacterDeletionBtnListener(this.accountController));
+		cancelCharacterDeletionBtn.addActionListener(new CancelCharacterDeletionBtnListener(this.characterController));
 		cancelCharacterDeletionBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cancelCharacterDeletionBtn.setBounds(10, 68, 155, 30);
 		contentPane.add(cancelCharacterDeletionBtn);
 		
 		JButton confirmCharacterDeletionBtn = new JButton("YES");
-		confirmCharacterDeletionBtn.addActionListener(new ConfirmCharacterDeletionBtnListener(this.accountController, this.characterAccID, this.characterName));
+		confirmCharacterDeletionBtn.addActionListener(new ConfirmCharacterDeletionBtnListener(this.characterController, this.characterAccID, this.characterName));
 		confirmCharacterDeletionBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		confirmCharacterDeletionBtn.setBounds(191, 68, 155, 30);
 		contentPane.add(confirmCharacterDeletionBtn);

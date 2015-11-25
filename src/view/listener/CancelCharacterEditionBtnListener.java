@@ -5,18 +5,17 @@ import java.awt.event.ActionListener;
 
 import control.CharacterController;
 
-public class RegisterCharacterListener implements ActionListener {
+public class CancelCharacterEditionBtnListener implements ActionListener {
 
 	private CharacterController characterController;
 	
-	public RegisterCharacterListener(CharacterController characterController){
+	public CancelCharacterEditionBtnListener(CharacterController characterController){
 		this.characterController = characterController;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.characterController.createRegisterCharacterWindow();
-
+		this.characterController.closeCharacterEditInfoWindow();
 	}
 
 }

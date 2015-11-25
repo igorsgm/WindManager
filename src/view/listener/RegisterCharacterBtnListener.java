@@ -12,13 +12,11 @@ import view.RegisterCharacterWindow;
 
 public class RegisterCharacterBtnListener implements ActionListener {
 	
-	//Attributes
 	private CharacterController characterController;
 	private RegisterCharacterWindow registerCharacterWindow;
 	private AccountController accountController;
 	private WebsiteReader websiteReader;
 	
-	//Constructor
 	public RegisterCharacterBtnListener(CharacterController characterController, RegisterCharacterWindow registerCharacterWindow, AccountController accountController) {
 		this.characterController = characterController;
 		this.registerCharacterWindow = registerCharacterWindow;

@@ -1,11 +1,14 @@
 package control;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import database.SimulatedDataBase;
 import exception.AccountNotFoundException;
 import model.Account;
 import model.Character;
+import view.CharacterConfirmDeletionWindow;
+import view.CharacterEditInfoWindow;
 import view.RegisterCharacterWindow;
 
 public class CharacterController {
@@ -13,6 +16,8 @@ public class CharacterController {
 	private SimulatedDataBase sdb;
 	private RegisterCharacterWindow registerCharacterWindow;
 	private AccountController accountController;
+	private CharacterEditInfoWindow characterEditInfoWindow;
+	private CharacterConfirmDeletionWindow characterConfirmDeletionWindow;
 	
 	//Constructors
 	public CharacterController(SimulatedDataBase sdb, AccountController accountController){
@@ -28,12 +33,28 @@ public class CharacterController {
 	public void createRegisterCharacterWindow() {
 		this.registerCharacterWindow = new RegisterCharacterWindow(this, this.accountController);
 	}
+	
+	public void createCharacterConfirmDeletionWindow(int characterAccID, String characterName) {
+		this.characterConfirmDeletionWindow = new CharacterConfirmDeletionWindow(this, characterAccID, characterName);
+	}
 
 	public void registerNewCharacter(Account account, String characterName, String vocation,
-									int currentStamina, int startBankBalance) throws AccountNotFoundException {
-		Character newCharacter = new Character(account, characterName, vocation ,currentStamina, startBankBalance);
+									int currentStamina, int bankBalance) throws AccountNotFoundException {
+		Character newCharacter = new Character(account, characterName, vocation ,currentStamina, bankBalance);
 		this.sdb.saveCharacter(account.getAccId(), newCharacter);
 	}
+	
+	public void updateCharacter(Account account, String characterName, String vocation,
+			int currentStamina, int bankBalance) {
+		Character editedCharacter = new Character(account, characterName, vocation, currentStamina, bankBalance);
+		try {
+			this.sdb.saveCharacter(account.getAccId(), editedCharacter);
+		} catch (AccountNotFoundException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+	}
+	
 
 	public Account getAccountByID(int accountComboBoxValue) throws AccountNotFoundException {
 		return this.sdb.getAccountByID(accountComboBoxValue);
@@ -44,4 +65,29 @@ public class CharacterController {
 		this.registerCharacterWindow = null;	
 	}
 
+	public void createCharacterEditInfoWindow(int characterAccID, String characterName) {
+		this.characterEditInfoWindow = new CharacterEditInfoWindow(this, characterAccID, characterName);
+		
+	}
+
+	public void closeCharacterEditInfoWindow() {
+		this.characterEditInfoWindow.setVisible(false);
+		this.characterEditInfoWindow = null;
+	}
+	
+	
+	public void closeCharacterConfirmDeletionWindow() {
+		this.characterConfirmDeletionWindow.setVisible(false);
+		this.characterConfirmDeletionWindow = null;
+	}
+	
+	public void deleteCharacter(int characterAccID, String characterName) {
+		this.sdb.deleteCharacter(characterAccID, characterName);
+	}
+	
+	public void callRefreshTables() throws IOException {
+		this.accountController.refreshTables();
+	}
+	
+	
 }

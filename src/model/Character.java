@@ -19,12 +19,12 @@ public class Character {
 	private int bankBalance;	// current bank balance
 
 	//Constructor method
-	public Character(Account charAcc, String name, String vocation, int currentStamina, int startBankBalance){
+	public Character(Account charAcc, String name, String vocation, int currentStamina, int bankBalance){
 		this.setCharAcc(charAcc);
 		this.setName(name);
 		this.setVocation(vocation);
 		this.setStamina(currentStamina);
-		this.setBankBalance(startBankBalance);
+		this.setBankBalance(bankBalance);
 	}
 
 	//Getters and setters

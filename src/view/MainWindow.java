@@ -1,7 +1,9 @@
 package view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -13,16 +15,17 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import control.AccountController;
+import control.CharacterController;
 import view.listener.DeleteAccountBtnListener;
 import view.listener.DeleteCharacterBtnListener;
+import view.listener.EditCharacterInfoBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
 
 public class MainWindow extends JFrame {
     private AccountController accountController;
+    private CharacterController characterController;
     private JPanel contentPane;
     private JTable tableAccounts;
     private JTable tableCharacters;
@@ -33,9 +36,10 @@ public class MainWindow extends JFrame {
     private TableRowSorter<TableModel> characterRowSorter;
     private TableRowSorter<TableModel> accountRowSorter;
 
-    public MainWindow(AccountController accountController) {
+    public MainWindow(AccountController accountController, CharacterController characterController) {
        
         this.accountController = accountController;
+        this.characterController = characterController;
         setVisible(true);
         setResizable(false);
         setTitle("WindManager");
@@ -116,7 +120,7 @@ public class MainWindow extends JFrame {
         characterListTab.setLayout(null);
        
         JButton btnRegister = new JButton("Register Character");
-        btnRegister.addActionListener(new RegisterCharacterListener(this.accountController));
+        btnRegister.addActionListener(new RegisterCharacterListener(this.characterController));
         btnRegister.setBounds(15, 6, 150, 40);
         characterListTab.add(btnRegister);
         
@@ -139,11 +143,11 @@ public class MainWindow extends JFrame {
                 //lines here
             },
             new String[] {
-                "Acc ID", "Name", "Level", "Vocation", "Stamina", "Status", "Start Bank Balance", "Current Bank Balance"
+                "Acc ID", "Name", "Level", "Vocation", "Stamina", "Status", "Bank Balance"
             }
         ) {
             boolean[] columnEditables = new boolean[] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
             public boolean isCellEditable(int row, int column) {
                 return columnEditables[column];
@@ -164,13 +168,17 @@ public class MainWindow extends JFrame {
         tableCharacters.getColumnModel().getColumn(4).setResizable(false);
         tableCharacters.getColumnModel().getColumn(5).setResizable(false);
         tableCharacters.getColumnModel().getColumn(6).setResizable(false);
-        tableCharacters.getColumnModel().getColumn(7).setResizable(false);
         scrollPane1.setViewportView(tableCharacters);
        
         JButton btnDeleteCharacter = new JButton("Delete Character");
-        btnDeleteCharacter.addActionListener(new DeleteCharacterBtnListener(this.accountController, this));
+        btnDeleteCharacter.addActionListener(new DeleteCharacterBtnListener(this, this.characterController));
         btnDeleteCharacter.setBounds(177, 6, 150, 40);
         characterListTab.add(btnDeleteCharacter);
+        
+        JButton btnEditCharacterInfo = new JButton("Edit Character Info");
+        btnEditCharacterInfo.addActionListener(new EditCharacterInfoBtnListener(this, this.characterController));
+        btnEditCharacterInfo.setBounds(339, 6, 150, 40);
+        characterListTab.add(btnEditCharacterInfo);
        
     }
 

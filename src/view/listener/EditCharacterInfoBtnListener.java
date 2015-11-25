@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 import control.CharacterController;
 import view.MainWindow;
 
-public class DeleteCharacterBtnListener implements ActionListener {
-
+public class EditCharacterInfoBtnListener implements ActionListener {
+	
 	private MainWindow mainWindow;
 	private CharacterController characterController;
 	
-	public DeleteCharacterBtnListener(MainWindow mainWindow, CharacterController characterController){
+	public EditCharacterInfoBtnListener(MainWindow mainWindow, CharacterController characterController){
 		this.mainWindow = mainWindow;
 		this.characterController = characterController;
 	}
@@ -24,7 +24,7 @@ public class DeleteCharacterBtnListener implements ActionListener {
 			//Getting characterName and acc ID from the selected row
 			int characterAccID = (int) this.mainWindow.getTableCharacters().getValueAt(selectedRow, 0);
 			String characterName = (String) this.mainWindow.getTableCharacters().getValueAt(selectedRow, 1);
-			this.characterController.createCharacterConfirmDeletionWindow(characterAccID, characterName);
+			this.characterController.createCharacterEditInfoWindow(characterAccID, characterName);
 		}
 	}
 

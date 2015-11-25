@@ -13,7 +13,6 @@ import exception.CharacterNotFoundException;
 import model.Account;
 import model.Character;
 import view.AccountConfirmDeletionWindow;
-import view.CharacterConfirmDeletionWindow;
 import view.MainWindow;
 import view.RegisterAccountWindow;
 import view.listener.TableFilterListener;
@@ -25,12 +24,11 @@ public class AccountController {
 	private CharacterController characterController;
 	private MainWindow mainWindow;
 	private AccountConfirmDeletionWindow accountConfirmDeletionWindow;
-	private CharacterConfirmDeletionWindow characterConfirmDeletionWindow;
 	
 	public AccountController(){
 		this.sdb = new SimulatedDataBase();
 		this.characterController = new CharacterController(this.sdb, this);
-		this.mainWindow = new MainWindow(this);
+		this.mainWindow = new MainWindow(this, this.characterController);
 	}
 	
 	public ArrayList<Account> getAccounts() {
@@ -40,17 +38,9 @@ public class AccountController {
 	public void createRegisterAccountWindow() {
 		this.registerAccountWindow = new RegisterAccountWindow(this);
 	}
-	
-	public void createRegisterCharacterWindow() {
-		this.characterController.createRegisterCharacterWindow();
-	}
 
 	public void createAccountConfirmDeletionWindow(int accID) {
 		this.accountConfirmDeletionWindow = new AccountConfirmDeletionWindow(this, accID);
-	}
-	
-	public void createCharacterConfirmDeletionWindow(int characterAccID, String characterName) {
-		this.characterConfirmDeletionWindow = new CharacterConfirmDeletionWindow(this, characterAccID, characterName);
 	}
 
 	public void registerNewAccount(int accountID, String accountName, String password) {
@@ -62,10 +52,6 @@ public class AccountController {
 		this.sdb.deleteAccount(accID);
 	}
 	
-	public void deleteCharacter(int characterAccID, String characterName) {
-		this.sdb.deleteCharacter(characterAccID, characterName);
-	}
-	
 	public void closeRegisterAccountWindow() {
 		this.registerAccountWindow.setVisible(false);
 		this.registerAccountWindow = null;
@@ -74,11 +60,6 @@ public class AccountController {
 	public void closeAccountConfirmDeletionWindow() {
 		this.accountConfirmDeletionWindow.setVisible(false);
 		this.accountConfirmDeletionWindow = null;
-	}
-	
-	public void closeCharacterConfirmDeletionWindow() {
-		this.characterConfirmDeletionWindow.setVisible(false);
-		this.characterConfirmDeletionWindow = null;
 	}
 	
 	public void refreshTables() throws IOException {
@@ -120,7 +101,7 @@ public class AccountController {
 	@SuppressWarnings("serial")
 	public void populateCharacterTable() throws IOException {
 		ArrayList<Character> characters = this.sdb.getCharacters();
-		Object[][] contents = new Object[characters.size()][8];
+		Object[][] contents = new Object[characters.size()][7];
 			for(int i = 0; i < characters.size(); i++) {
 				/*AccID*/		contents[i][0] = characters.get(i).getCharAcc().getAccId();
 				/*Name*/		contents[i][1] = characters.get(i).getName();
@@ -129,15 +110,14 @@ public class AccountController {
 				/*Stamina*/		contents[i][4] = characters.get(i).getStamina();
 				/*Status*/		contents[i][5] = characters.get(i).getStatus();
 				/*BankBalance*/	contents[i][6] = characters.get(i).getBankBalance();
-								contents[i][7] = "x";
 			}
 			this.mainWindow.getTableCharacters().setModel(new DefaultTableModel(contents,
 		            new String[] {
-		                    "Acc ID", "Name", "Level", "Vocation", "Stamina", "Status", "Start Bank Balance", "Current Bank Balance"
+		                    "Acc ID", "Name", "Level", "Vocation", "Stamina", "Status", "Bank Balance"
 		                }
 		            ) {
 		                boolean[] columnEditables = new boolean[] {
-		                    false, false, false, false, false, false, false, false
+		                    false, false, false, false, false, false, false
 		                };
 		                public boolean isCellEditable(int row, int column) {
 		                    return columnEditables[column];

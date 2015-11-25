@@ -4,28 +4,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import control.AccountController;
+import control.CharacterController;
 
 public class ConfirmCharacterDeletionBtnListener implements ActionListener {
 
-	private AccountController accountController;
+	private CharacterController characterController;
 	private int characterAccID;
 	private String characterName;
 	
-	public ConfirmCharacterDeletionBtnListener(AccountController accountController, int characterAccID, String characterName){
-		this.accountController = accountController;
+	public ConfirmCharacterDeletionBtnListener(CharacterController characterController, int characterAccID, String characterName){
+		this.characterController = characterController;
 		this.characterAccID = characterAccID;
 		this.characterName = characterName;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.accountController.deleteCharacter(characterAccID, characterName);
-		this.accountController.closeCharacterConfirmDeletionWindow();
+		this.characterController.deleteCharacter(characterAccID, characterName);
+		//this.accountController.deleteCharacter(characterAccID, characterName);
+		this.characterController.closeCharacterConfirmDeletionWindow();
+		//this.accountController.closeCharacterConfirmDeletionWindow();
 		try {
-			this.accountController.refreshTables();
+			this.characterController.callRefreshTables();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
