@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import control.AccountController;
 import control.CharacterController;
+import view.listener.CancelChangePasswordListener;
 import view.listener.ConfirmChangePasswordListener;
 
 @SuppressWarnings("serial")
@@ -52,6 +53,7 @@ public class ChangePasswordWindow extends JFrame {
 		contentPane.add(newPassword_TF);
 		
 		JButton btnCancelChangePassword = new JButton("Cancel");
+		btnCancelChangePassword.addActionListener(new CancelChangePasswordListener(this.accountController));
 		btnCancelChangePassword.setBounds(16, 54, 140, 40);
 		contentPane.add(btnCancelChangePassword);
 		

@@ -22,8 +22,6 @@ import view.listener.DeleteCharacterBtnListener;
 import view.listener.EditCharacterInfoBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 public class MainWindow extends JFrame {
