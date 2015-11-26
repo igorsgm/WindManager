@@ -24,7 +24,9 @@ public class SimulatedDataBase {
 		this.characters = new ArrayList<Character>();
 		this.populateSimulatedDataBase();
 	}
-
+	
+	
+	//POPULATING
 	public void populateSimulatedDataBase(){
 		this.populateAccounts();
 		this.populateCharacters();
@@ -40,7 +42,6 @@ public class SimulatedDataBase {
 				}
 				line = reader.readLine();
 		}		
-			//JOptionPane.showMessageDialog(null, this.accounts);
 	}
 	
 	public void populateCharacters(){
@@ -61,11 +62,10 @@ public class SimulatedDataBase {
 				}
 				line = reader.readLine();
 		}		
-			//JOptionPane.showMessageDialog(null, this.characters);
 	}
 	
-	//SAVES
 	
+	//SAVING
 	public void saveAccount(Account acc){
 		Writer writer = new Writer("accounts.txt");
 		writer.write(acc.getAccId() + separatorToSplit + acc.getAccName() + separatorToSplit + acc.getAccPassword());
@@ -85,9 +85,7 @@ public class SimulatedDataBase {
 		this.characters.add(character);
 	}
 	
-	//DELETES
-	
-	
+	//DELETING
 	public void deleteAccount(int accID) throws AccountNotFoundException {
 		try {
 			this.updateFile(this.getAccountLineByID(accID), "accounts.txt");
@@ -138,12 +136,30 @@ public class SimulatedDataBase {
 		}
 	}
 	
-	
-	
-	
-	//GETTERS
-	
+	//UPDATING
+	public void updateFile(String lineToRemove, String fileName){
+		File inputFile = new File(fileName);
+		File tempFile = new File("fileTemp.txt");
+		
+		Reader reader = new Reader(fileName);
+		Writer writer = new Writer("fileTemp.txt");
+		
+		String currentLine;
 
+		while((currentLine = reader.readLine()) != null) {
+		    // trim newline when comparing with lineToRemove
+		    String trimmedLine = currentLine.trim();
+		    if(trimmedLine.equals(lineToRemove)) continue;
+		    writer.write(currentLine);
+		}
+		writer.close();
+		@SuppressWarnings("unused")
+		boolean successful = tempFile.renameTo(inputFile);
+	}
+	
+	
+		
+	//GETTERS
 	public ArrayList<Account> getAccounts() {
 		return accounts;
 	}
@@ -229,25 +245,6 @@ public class SimulatedDataBase {
 			}
 		}
 		throw new LineNotFoundException();
-}
-	
-	public void updateFile(String lineToRemove, String fileName){
-		File inputFile = new File(fileName);
-		File tempFile = new File("fileTemp.txt");
-		
-		Reader reader = new Reader(fileName);
-		Writer writer = new Writer("fileTemp.txt");
-		
-		String currentLine;
-
-		while((currentLine = reader.readLine()) != null) {
-		    // trim newline when comparing with lineToRemove
-		    String trimmedLine = currentLine.trim();
-		    if(trimmedLine.equals(lineToRemove)) continue;
-		    writer.write(currentLine);
-		}
-		writer.close();
-		boolean successful = tempFile.renameTo(inputFile);
 	}
 	
 	

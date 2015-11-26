@@ -25,6 +25,8 @@ public class EditCharacterInfoBtnListener implements ActionListener {
 			int characterAccID = (int) this.mainWindow.getTableCharacters().getValueAt(selectedRow, 0);
 			String characterName = (String) this.mainWindow.getTableCharacters().getValueAt(selectedRow, 1);
 			this.characterController.createCharacterEditInfoWindow(characterAccID, characterName);
+		}else{
+			//Do nothing
 		}
 	}
 

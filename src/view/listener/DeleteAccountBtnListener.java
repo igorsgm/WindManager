@@ -18,13 +18,14 @@ public class DeleteAccountBtnListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		int selectedRow = this.mainWindow.getTableAccounts().getSelectedRow();
 		//Checking if some row has been selected
 		if (selectedRow != -1) {
 			//Getting accID from the selected row
 			int accID = (int) this.mainWindow.getTableAccounts().getValueAt(selectedRow, 0);
 			this.accountController.createAccountConfirmDeletionWindow(accID);
+		}else{
+			//Do nothing
 		}
 	}
 

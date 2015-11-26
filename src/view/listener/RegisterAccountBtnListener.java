@@ -19,7 +19,6 @@ public class RegisterAccountBtnListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(! this.accountController.isRepeatedAccID(this.registerAccountWindow.getAccID_TF())){
-			
 			this.accountController.registerNewAccount(	this.registerAccountWindow.getAccID_TF(),
 														this.registerAccountWindow.getAccName_TF(),
 														this.registerAccountWindow.getPassword_TF());

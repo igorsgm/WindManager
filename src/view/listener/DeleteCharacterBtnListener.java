@@ -25,6 +25,8 @@ public class DeleteCharacterBtnListener implements ActionListener {
 			int characterAccID = (int) this.mainWindow.getTableCharacters().getValueAt(selectedRow, 0);
 			String characterName = (String) this.mainWindow.getTableCharacters().getValueAt(selectedRow, 1);
 			this.characterController.createCharacterConfirmDeletionWindow(characterAccID, characterName);
+		}else{
+			//Do nothing
 		}
 	}
 

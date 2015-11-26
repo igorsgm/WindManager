@@ -20,10 +20,12 @@ import view.listener.ChangePasswordBtnListener;
 import view.listener.DeleteAccountBtnListener;
 import view.listener.DeleteCharacterBtnListener;
 import view.listener.EditCharacterInfoBtnListener;
+import view.listener.RefreshBtnListener;
 import view.listener.RegisterAccountListener;
 import view.listener.RegisterCharacterListener;
 
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
     private AccountController accountController;
     private CharacterController characterController;
@@ -56,6 +58,9 @@ public class MainWindow extends JFrame {
         contentPane.add(tabbedPane);
         contentPane.setLayout(null);
        
+        /*
+         * Account List Tab
+         */
         JPanel accountsTab = new JPanel();
         tabbedPane.addTab("Accounts", null, accountsTab, null);
         accountsTab.setLayout(null);
@@ -68,8 +73,6 @@ public class MainWindow extends JFrame {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(15, 58, 835, 445);
         accountsTab.add(scrollPane);
-       
-        
         
         tableAccounts = new JTable();
         tableAccounts.setModel(new DefaultTableModel(
@@ -90,7 +93,6 @@ public class MainWindow extends JFrame {
         
         //Columns properties 
         tableAccounts.getColumnModel().getColumn(0).setResizable(false);
-        tableAccounts.getColumnModel().getColumn(0).setMaxWidth(45);
         tableAccounts.getColumnModel().getColumn(1).setResizable(false);
         tableAccounts.getColumnModel().getColumn(2).setResizable(false);
         tableAccounts.getColumnModel().getColumn(3).setResizable(false);
@@ -100,7 +102,7 @@ public class MainWindow extends JFrame {
         JButton btnDeleteAccount = new JButton("Delete Account");
         accountsTab.add(btnDeleteAccount);
         btnDeleteAccount.addActionListener(new DeleteAccountBtnListener(this.accountController, this));
-        btnDeleteAccount.setBounds(187, 6, 150, 40);
+        btnDeleteAccount.setBounds(177, 6, 150, 40);
         
         this.accountFilter_TF = new JTextField();
         this.accountFilter_TF.setColumns(10);
@@ -114,8 +116,14 @@ public class MainWindow extends JFrame {
         
         JButton btnChangePassword = new JButton("Change Password");
         btnChangePassword.addActionListener(new ChangePasswordBtnListener(this, this.accountController));
-        btnChangePassword.setBounds(349, 6, 150, 40);
+        btnChangePassword.setBounds(339, 6, 150, 40);
         accountsTab.add(btnChangePassword);
+        
+        JButton refreshButton = new JButton("");
+        refreshButton.setIcon(new ImageIcon(MainWindow.class.getResource("/images/refresh-icon.png")));
+        refreshButton.addActionListener(new RefreshBtnListener(this.accountController));
+        refreshButton.setBounds(515, 6, 50, 40);
+        accountsTab.add(refreshButton);
        
        
         /*
@@ -129,6 +137,22 @@ public class MainWindow extends JFrame {
         btnRegister.addActionListener(new RegisterCharacterListener(this.characterController));
         btnRegister.setBounds(15, 6, 150, 40);
         characterListTab.add(btnRegister);
+        
+        JButton btnDeleteCharacter = new JButton("Delete Character");
+        btnDeleteCharacter.addActionListener(new DeleteCharacterBtnListener(this, this.characterController));
+        btnDeleteCharacter.setBounds(177, 6, 150, 40);
+        characterListTab.add(btnDeleteCharacter);
+        
+        JButton btnEditCharacterInfo = new JButton("Edit Character Info");
+        btnEditCharacterInfo.addActionListener(new EditCharacterInfoBtnListener(this, this.characterController));
+        btnEditCharacterInfo.setBounds(339, 6, 150, 40);
+        characterListTab.add(btnEditCharacterInfo);
+        
+        JButton refreshButton_2 = new JButton("");
+        refreshButton_2.setIcon(new ImageIcon(MainWindow.class.getResource("/images/refresh-icon.png")));
+        refreshButton_2.addActionListener(new RefreshBtnListener(this.accountController));
+        refreshButton_2.setBounds(515, 6, 50, 40);
+        characterListTab.add(refreshButton_2);
         
         this.characterFilter_TF = new JTextField();
         this.characterFilter_TF.setBounds(620, 11, 230, 35);
@@ -160,14 +184,8 @@ public class MainWindow extends JFrame {
             }
         });
         
-        //this.characterRowSorter = new TableRowSorter<>(tableCharacters.getModel());
-        //this.tableCharacters.setRowSorter(this.characterRowSorter);
-        //characterFilter_TF.getDocument().addDocumentListener(new TableFilterListener(this.characterFilter_TF, this.characterRowSorter));
-        
-        
         //Columns properties
         tableCharacters.getColumnModel().getColumn(0).setResizable(false);
-        tableCharacters.getColumnModel().getColumn(0).setMaxWidth(45);
         tableCharacters.getColumnModel().getColumn(1).setResizable(false);
         tableCharacters.getColumnModel().getColumn(2).setResizable(false);
         tableCharacters.getColumnModel().getColumn(3).setResizable(false);
@@ -176,17 +194,9 @@ public class MainWindow extends JFrame {
         tableCharacters.getColumnModel().getColumn(6).setResizable(false);
         scrollPane1.setViewportView(tableCharacters);
        
-        JButton btnDeleteCharacter = new JButton("Delete Character");
-        btnDeleteCharacter.addActionListener(new DeleteCharacterBtnListener(this, this.characterController));
-        btnDeleteCharacter.setBounds(177, 6, 150, 40);
-        characterListTab.add(btnDeleteCharacter);
-        
-        JButton btnEditCharacterInfo = new JButton("Edit Character Info");
-        btnEditCharacterInfo.addActionListener(new EditCharacterInfoBtnListener(this, this.characterController));
-        btnEditCharacterInfo.setBounds(339, 6, 150, 40);
-        characterListTab.add(btnEditCharacterInfo);
-       
     }
+    
+    //Getters and setters
 
     public JTable getTableAccounts() {
         return tableAccounts;

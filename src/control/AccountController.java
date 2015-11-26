@@ -9,7 +9,6 @@ import javax.swing.table.TableRowSorter;
 
 import database.SimulatedDataBase;
 import exception.AccountNotFoundException;
-import exception.CharacterNotFoundException;
 import model.Account;
 import model.Character;
 import view.AccountConfirmDeletionWindow;
@@ -47,6 +46,27 @@ public class AccountController {
 		return this.sdb.getAccounts();
 	}
 	
+	public boolean isRepeatedAccID(int accID){
+		return this.sdb.isRepeatedAccID(accID);
+	}
+	
+	//Registering and deleting
+	public void registerNewAccount(int accountID, String accountName, String password) {
+		Account newAccount = new Account(accountID, accountName, password);
+		this.sdb.saveAccount(newAccount);
+	}
+
+	public void deleteAccount(int accID) {
+		try {
+			this.sdb.deleteAccount(accID);
+		} catch (AccountNotFoundException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//Creating windows
 	public void createRegisterAccountWindow() {
 		this.registerAccountWindow = new RegisterAccountWindow(this);
 	}
@@ -56,18 +76,11 @@ public class AccountController {
 	}
 	
 	public void createChangePasswordWindow(int accID, String accountName) {
-		this.changePasswordWindow = new ChangePasswordWindow(this, this.characterController, accID, accountName);
-	}
-
-	public void registerNewAccount(int accountID, String accountName, String password) {
-		Account newAccount = new Account(accountID, accountName, password);
-		this.sdb.saveAccount(newAccount);
-	}
-
-	public void deleteAccount(int accID) throws AccountNotFoundException, CharacterNotFoundException {
-		this.sdb.deleteAccount(accID);
+		this.changePasswordWindow = new ChangePasswordWindow(this, accID, accountName);
 	}
 	
+
+	//Closing windows
 	public void closeRegisterAccountWindow() {
 		this.registerAccountWindow.setVisible(false);
 		this.registerAccountWindow = null;
@@ -83,10 +96,8 @@ public class AccountController {
 		this.changePasswordWindow = null;
 	}
 	
-	public boolean isRepeatedAccID(int accID){
-		return this.sdb.isRepeatedAccID(accID);
-	}
 	
+	//Populating tables
 	public void refreshTables() throws IOException {
 		this.populateAccountTable();
 		this.populateCharacterTable();
@@ -155,6 +166,33 @@ public class AccountController {
 			this.mainWindow.setCharacterRowSorter(new TableRowSorter<>(this.mainWindow.getTableCharacters().getModel()));
 	        this.mainWindow.getTableCharacters().setRowSorter(this.mainWindow.getCharacterRowSorter());
 			this.mainWindow.getCharacterFilter_TF().getDocument().addDocumentListener(new TableFilterListener(this.mainWindow.getCharacterFilter_TF(), this.mainWindow.getCharacterRowSorter()));
+	}
+
+	public void updatePassword(int accID, String accountName, String newPassword_TF) {
+		ArrayList<Character> charactersToMove = new ArrayList<Character>();
+		for(int i=0; i < this.getAccounts().size(); i++){
+			if(this.getAccounts().get(i).getAccId() == accID){
+				//getting characters from older account
+				charactersToMove = this.getAccounts().get(i).getCharacters();
+				
+				//deleting account
+				this.deleteAccount(accID);
+				
+				//create new account with new characters
+				this.registerNewAccount(accID, accountName, newPassword_TF);
+				
+				//appending new characters inside new account
+				for (int j=0; j < charactersToMove.size(); j++){
+					try {
+						this.characterController.registerNewCharacter(charactersToMove.get(j).getCharAcc(), charactersToMove.get(j).getName(), charactersToMove.get(j).getVocation(), charactersToMove.get(j).getStamina(), charactersToMove.get(j).getBankBalance());
+					} catch (AccountNotFoundException | IOException e1) {
+						e1.getMessage();
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		
 	}
 	
 	

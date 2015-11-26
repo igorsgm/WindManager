@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import control.CharacterController;
-import exception.AccountNotFoundException;
 import helper.WebsiteReader;
 import view.CharacterEditInfoWindow;
 
@@ -30,15 +29,11 @@ public class ConfirmCharacterEditionBtnListener implements ActionListener {
 													this.websiteReader.characterInfoReader(), //vocation
 													this.characterEditInfoWindow.getCurrentStamina_TF(),
 													this.characterEditInfoWindow.getBankBalance_TF());
-		} catch (AccountNotFoundException | IOException e1) {
+		} catch (IOException e1) {
 			e1.getMessage();
 			e1.printStackTrace();
 		}
-		try {
-			this.characterController.callRefreshTables();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		this.characterController.callRefreshTables();
 		this.characterController.closeCharacterEditInfoWindow();
 	}
 

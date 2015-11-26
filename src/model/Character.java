@@ -11,8 +11,6 @@ public class Character {
 	private String name;
 	private int level;			// current level
 	private String world;
-	private int weaponSkill;
-	private int shieldSkill;
 	private String vocation;
 	private String status;		//online or offline
 	private int stamina;		// current stamina
@@ -34,6 +32,10 @@ public class Character {
 		this.setVocation(vocation);
 		this.setStamina(currentStamina);
 		this.setBankBalance(bankBalance);
+	}
+	
+	public String toString(){
+		return this.getName();
 	}
 
 	//Getters and setters
@@ -81,22 +83,6 @@ public class Character {
 		this.world = world;
 	}
 
-	public int getWeaponSkill() {
-		return weaponSkill;
-	}
-
-	public void setWeaponSkill(int weaponSkill) {
-		this.weaponSkill = weaponSkill;
-	}
-
-	public int getShieldSkill() {
-		return shieldSkill;
-	}
-
-	public void setShieldSkill(int shieldSkill) {
-		this.shieldSkill = shieldSkill;
-	}
-
 	public String getVocation() throws IOException {
 		WebsiteReader websiteReader = new WebsiteReader(this.getName(), "Vocation");
 		try {
@@ -139,10 +125,6 @@ public class Character {
 
 	public void setBankBalance(int bankBalance) {
 		this.bankBalance = bankBalance;
-	}
-	
-	public String toString(){
-		return this.getName();
 	}
 
 }

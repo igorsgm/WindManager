@@ -8,7 +8,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import control.AccountController;
-import control.CharacterController;
 import view.listener.CancelChangePasswordListener;
 import view.listener.ConfirmChangePasswordListener;
 
@@ -16,15 +15,13 @@ import view.listener.ConfirmChangePasswordListener;
 public class ChangePasswordWindow extends JFrame {
 	
 	private AccountController accountController;
-	private CharacterController characterController;
 	private int accID;
 	private String accountName;
 	private JPanel contentPane;
 	private JTextField newPassword_TF;
 
-	public ChangePasswordWindow(AccountController accountController, CharacterController characterController, int accID, String accountName) {
+	public ChangePasswordWindow(AccountController accountController, int accID, String accountName) {
 		this.accountController = accountController;
-		this.characterController = characterController;
 		this.accID = accID;
 		this.accountName = accountName;
 		
@@ -43,7 +40,7 @@ public class ChangePasswordWindow extends JFrame {
 		contentPane.add(lblPassword);
 		
 		JButton btnConfirmChangePassword = new JButton("Confirm");
-		btnConfirmChangePassword.addActionListener(new ConfirmChangePasswordListener(this, this.accountController, this.characterController));
+		btnConfirmChangePassword.addActionListener(new ConfirmChangePasswordListener(this, this.accountController));
 		btnConfirmChangePassword.setBounds(195, 54, 140, 40);
 		contentPane.add(btnConfirmChangePassword);
 		

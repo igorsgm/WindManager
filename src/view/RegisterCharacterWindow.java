@@ -48,7 +48,6 @@ public class RegisterCharacterWindow extends JFrame {
 		
 		this.comboBoxAccounts = new JComboBox();
 		contentPane.add(this.comboBoxAccounts);
-		//this.comboBoxAccounts.addItem("You must create an account");
 		this.comboBoxAccounts.setMaximumRowCount(100);
 		this.comboBoxAccounts.setBounds(156, 16, 190, 27);
 		this.populateAccountComboBox(this.characterController.getAccounts());
@@ -90,6 +89,7 @@ public class RegisterCharacterWindow extends JFrame {
 	}
 	
 	//Getters and other Methods
+	
 	public int getAccountComboBoxValue() {
 		return Integer.parseInt(this.comboBoxAccounts.getSelectedItem().toString());
 	}

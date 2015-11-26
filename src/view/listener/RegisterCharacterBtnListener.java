@@ -28,24 +28,20 @@ public class RegisterCharacterBtnListener implements ActionListener {
 		if(!this.characterController.isRepeatedCharacterName(this.registerCharacterWindow.getCharacterName_TF())){
 			this.websiteReader = new WebsiteReader(this.registerCharacterWindow.getCharacterName_TF(), "Vocation");
 			try {
-				try {
-					this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
-																  this.registerCharacterWindow.getCharacterName_TF(),
-																  this.websiteReader.characterInfoReader(),
-																  this.registerCharacterWindow.getCurrentStamina_TF(),
-																  this.registerCharacterWindow.getBankBalance_TF());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			} catch (AccountNotFoundException | NumberFormatException e1) {
+				this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
+															this.registerCharacterWindow.getCharacterName_TF(),
+															this.websiteReader.characterInfoReader(),
+															this.registerCharacterWindow.getCurrentStamina_TF(),
+															this.registerCharacterWindow.getBankBalance_TF());
+			} catch (AccountNotFoundException | IOException e1) {
+				e1.printStackTrace();
 				e1.getMessage();
 			}
 			try {
-				this.accountController.populateCharacterTable();
+				this.accountController.refreshTables();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			this.accountController.populateAccountTable();
 			this.characterController.closeRegisterCharacterWindow();
 		}else{
 			//Do nothing
