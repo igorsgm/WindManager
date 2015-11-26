@@ -18,11 +18,16 @@ public class RegisterAccountBtnListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.accountController.registerNewAccount(this.registerAccountWindow.getAccID_TF(),
-												  this.registerAccountWindow.getAccName_TF(),
-												  this.registerAccountWindow.getPassword_TF());
-		this.accountController.populateAccountTable();
-		this.accountController.closeRegisterAccountWindow();
+		if(! this.accountController.isRepeatedAccID(this.registerAccountWindow.getAccID_TF())){
+			
+			this.accountController.registerNewAccount(	this.registerAccountWindow.getAccID_TF(),
+														this.registerAccountWindow.getAccName_TF(),
+														this.registerAccountWindow.getPassword_TF());
+			this.accountController.populateAccountTable();
+			this.accountController.closeRegisterAccountWindow();
+		}else{
+			//Do nothing
+		}
 		
 
 	}

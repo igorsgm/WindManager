@@ -25,27 +25,32 @@ public class RegisterCharacterBtnListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.websiteReader = new WebsiteReader(this.registerCharacterWindow.getCharacterName_TF(), "Vocation");
-		try {
+		if(!this.characterController.isRepeatedCharacterName(this.registerCharacterWindow.getCharacterName_TF())){
+			this.websiteReader = new WebsiteReader(this.registerCharacterWindow.getCharacterName_TF(), "Vocation");
 			try {
-				this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
-															  this.registerCharacterWindow.getCharacterName_TF(),
-															  this.websiteReader.characterInfoReader(),
-															  this.registerCharacterWindow.getCurrentStamina_TF(),
-															  this.registerCharacterWindow.getBankBalance_TF());
+				try {
+					this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
+																  this.registerCharacterWindow.getCharacterName_TF(),
+																  this.websiteReader.characterInfoReader(),
+																  this.registerCharacterWindow.getCurrentStamina_TF(),
+																  this.registerCharacterWindow.getBankBalance_TF());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			} catch (AccountNotFoundException | NumberFormatException e1) {
+				e1.getMessage();
+			}
+			try {
+				this.accountController.populateCharacterTable();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-		} catch (AccountNotFoundException | NumberFormatException e1) {
-			e1.getMessage();
+			this.accountController.populateAccountTable();
+			this.characterController.closeRegisterCharacterWindow();
+		}else{
+			//Do nothing
 		}
-		try {
-			this.accountController.populateCharacterTable();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		this.accountController.populateAccountTable();
-		this.characterController.closeRegisterCharacterWindow();
+		
 	}
 	
 

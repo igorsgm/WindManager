@@ -83,6 +83,10 @@ public class AccountController {
 		this.changePasswordWindow = null;
 	}
 	
+	public boolean isRepeatedAccID(int accID){
+		return this.sdb.isRepeatedAccID(accID);
+	}
+	
 	public void refreshTables() throws IOException {
 		this.populateAccountTable();
 		this.populateCharacterTable();
@@ -113,7 +117,7 @@ public class AccountController {
 		                }
 		            });
 			/*
-			 * Enabling dynamical Account filter by text after populating
+			 * Enabling Account filter by text after populating
 			 * */
 			this.mainWindow.setAccountRowSorter(new TableRowSorter<>(this.mainWindow.getTableAccounts().getModel()));
 	        this.mainWindow.getTableAccounts().setRowSorter(this.mainWindow.getAccountRowSorter());
@@ -146,7 +150,7 @@ public class AccountController {
 		                }
 		            });
 			/*
-			 * Enabling dynamical Character filter by text after populating
+			 * Enabling Character filter by text after populating
 			 * */
 			this.mainWindow.setCharacterRowSorter(new TableRowSorter<>(this.mainWindow.getTableCharacters().getModel()));
 	        this.mainWindow.getTableCharacters().setRowSorter(this.mainWindow.getCharacterRowSorter());

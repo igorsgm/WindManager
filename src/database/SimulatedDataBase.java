@@ -152,6 +152,24 @@ public class SimulatedDataBase {
 		return characters;
 	}
 	
+	public boolean isRepeatedAccID(int accID) {
+		for(int i = 0; i < this.accounts.size(); i++){
+			if(this.accounts.get(i).getAccId() == accID){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isRepeatedCharacterName(String characterName) {
+		for(int i = 0; i < this.characters.size(); i++){
+			if(this.characters.get(i).getName().equalsIgnoreCase(characterName)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Account getAccountByID(int accID) throws AccountNotFoundException {
 		for (int i = 0; i < this.accounts.size(); i++){
 			if(this.accounts.get(i).getAccId() == accID){
@@ -231,8 +249,6 @@ public class SimulatedDataBase {
 		writer.close();
 		boolean successful = tempFile.renameTo(inputFile);
 	}
-
-	
 	
 	
 	

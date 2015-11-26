@@ -88,6 +88,10 @@ public class CharacterController {
 	public void callRefreshTables() throws IOException {
 		this.accountController.refreshTables();
 	}
+
+	public boolean isRepeatedCharacterName(String characterName) {
+		return this.sdb.isRepeatedCharacterName(characterName);
+	}
 	
 	
 }
