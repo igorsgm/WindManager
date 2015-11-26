@@ -29,16 +29,19 @@ public class RegisterCharacterBtnListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(this.registerCharacterWindow.checkFields()){
 			this.websiteReader = new WebsiteReader(this.registerCharacterWindow.getCharacterName_TF(), "Vocation");
-			try {
-				this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
-															this.registerCharacterWindow.getCharacterName_TF(),
-															this.websiteReader.characterInfoReader(),
-															Integer.parseInt(this.registerCharacterWindow.getCurrentStamina_TF()),
-															Integer.parseInt(this.registerCharacterWindow.getBankBalance_TF()));
-			} catch (AccountNotFoundException | IOException e1) {
-				e1.printStackTrace();
-				e1.getMessage();
-			}
+				try {
+					this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
+																this.registerCharacterWindow.getCharacterName_TF(),
+																this.websiteReader.characterInfoReader(),
+																Integer.parseInt(this.registerCharacterWindow.getCurrentStamina_TF()),
+																Integer.parseInt(this.registerCharacterWindow.getBankBalance_TF()));
+				} catch (NumberFormatException | AccountNotFoundException e2) {
+					e2.getMessage();
+					e2.printStackTrace();
+				} catch (IOException e2) {
+					JOptionPane.showMessageDialog(null, "This character does not exist or you had a connection error.", "Error", JOptionPane.ERROR_MESSAGE);
+					e2.printStackTrace();
+				}
 			try {
 				this.accountController.refreshTables();
 			} catch (IOException e1) {
