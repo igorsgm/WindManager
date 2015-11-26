@@ -22,13 +22,13 @@ public class ConfirmCharacterDeletionBtnListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		this.characterController.deleteCharacter(characterAccID, characterName);
 		//this.accountController.deleteCharacter(characterAccID, characterName);
-		this.characterController.closeCharacterConfirmDeletionWindow();
-		//this.accountController.closeCharacterConfirmDeletionWindow();
 		try {
 			this.characterController.callRefreshTables();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		this.characterController.closeCharacterConfirmDeletionWindow();
+		//this.accountController.closeCharacterConfirmDeletionWindow();
 		
 
 	}

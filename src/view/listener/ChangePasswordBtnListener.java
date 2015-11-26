@@ -23,7 +23,7 @@ public class ChangePasswordBtnListener implements ActionListener {
 		if (selectedRow != -1) {
 			//Getting characterName and acc ID from the selected row
 			int AccID = (int) this.mainWindow.getTableAccounts().getValueAt(selectedRow, 0);
-			String accountName = (String) this.mainWindow.getTableAccounts().getValueAt(selectedRow, 1);
+			String accountName = (String) this.mainWindow.getTableAccounts().getValueAt(selectedRow, 2);
 			this.accountController.createChangePasswordWindow(AccID, accountName);
 		}
 

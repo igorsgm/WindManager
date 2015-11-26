@@ -26,17 +26,15 @@ public class ConfirmAccountDeletionBtnListener implements ActionListener {
 			e1.getMessage();
 			e1.printStackTrace();
 		} catch (CharacterNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.getMessage();
 			e1.printStackTrace();
 		}
-		this.accountController.closeAccountConfirmDeletionWindow();
 		try {
 			this.accountController.refreshTables();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		this.accountController.closeAccountConfirmDeletionWindow();
 		
 
 	}

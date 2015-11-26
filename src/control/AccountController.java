@@ -33,7 +33,11 @@ public class AccountController {
 		this.mainWindow = new MainWindow(this, this.characterController);
 		try {
 			this.refreshTables();
-			this.populateAccountTable();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			this.refreshTables();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

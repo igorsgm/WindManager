@@ -24,15 +24,6 @@ public class Account {
 		this.characters = new ArrayList<Character>();
 	}
 	
-//	public Account(int accId, String accStatus, String accName, String accPassword, int amountOfChars, ArrayList<Character> charactersAvaliableToHunt){
-//		this.setAccId(accId);
-//		this.setAccStatus(accStatus);
-//		this.setAccName(accName);
-//		this.setAccPassword(accPassword);
-//		this.setAmountOfChars(amountOfChars);
-//		this.setCharactersAvaliableToHunt(charactersAvaliableToHunt);
-//	}
-	
 
 	//Getters and setters
 	public int getAccId() {
