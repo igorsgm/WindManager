@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -74,7 +78,15 @@ public class MainWindow extends JFrame {
         scrollPane.setBounds(15, 58, 835, 445);
         accountsTab.add(scrollPane);
         
-        tableAccounts = new JTable();
+        tableAccounts = new JTable(){
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
+                    Component c = super.prepareRenderer(renderer, row, column);
+                    if (!isRowSelected(row)){
+    					c.setBackground(row % 2 == 0 ? getBackground() : Color.LIGHT_GRAY);
+                    }
+    				return c;
+                }
+            };
         tableAccounts.setModel(new DefaultTableModel(
             new Object[][] {
                 //lines here
@@ -96,7 +108,7 @@ public class MainWindow extends JFrame {
         tableAccounts.getColumnModel().getColumn(1).setResizable(false);
         tableAccounts.getColumnModel().getColumn(2).setResizable(false);
         tableAccounts.getColumnModel().getColumn(3).setResizable(false);
-        tableAccounts.getColumnModel().getColumn(4).setResizable(false);
+        tableAccounts.getColumnModel().getColumn(4).setResizable(false);     
         scrollPane.setViewportView(tableAccounts);
        
         JButton btnDeleteAccount = new JButton("Delete Account");
@@ -167,7 +179,15 @@ public class MainWindow extends JFrame {
         scrollPane1.setBounds(15, 58, 835, 445);
         characterListTab.add(scrollPane1);
         
-        this.tableCharacters = new JTable();
+        this.tableCharacters = new JTable(){
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (!isRowSelected(row)){
+					c.setBackground(row % 2 == 0 ? getBackground() : Color.LIGHT_GRAY);
+                }
+				return c;
+            }
+        };
         this.tableCharacters.setModel(new DefaultTableModel(
             new Object[][] {
                 //lines here

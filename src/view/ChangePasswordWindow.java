@@ -56,6 +56,12 @@ public class ChangePasswordWindow extends JFrame {
 		
 		
 	}
+	public boolean checkFields(){
+		if (this.getNewPassword_TF().isEmpty()){
+			return false;
+		}
+		return true;
+	}
 	
 	//Getters
 	public String getNewPassword_TF() {

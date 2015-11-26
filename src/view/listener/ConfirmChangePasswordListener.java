@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import control.AccountController;
 import view.ChangePasswordWindow;
 
@@ -19,7 +21,7 @@ public class ConfirmChangePasswordListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(!this.changePasswordWindow.getNewPassword_TF().isEmpty()){
+		if(this.changePasswordWindow.checkFields()){
 			this.accountController.updatePassword(this.changePasswordWindow.getAccID(), this.changePasswordWindow.getAccountName(),
 												this.changePasswordWindow.getNewPassword_TF());
 			try {
@@ -29,7 +31,8 @@ public class ConfirmChangePasswordListener implements ActionListener {
 			}
 			this.accountController.closeChangePasswordWindow();
 		}else{
-			//Do nothing
+			//Error Message
+			JOptionPane.showMessageDialog(null, "Incorrect filled field. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

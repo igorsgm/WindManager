@@ -35,11 +35,6 @@ public class AccountController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try {
-			this.refreshTables();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public ArrayList<Account> getAccounts() {
@@ -113,7 +108,7 @@ public class AccountController {
 				contents[i][2] = accounts.get(i).getAccName();
 				contents[i][3] = accounts.get(i).getAccPassword();
 				contents[i][4] = accounts.get(i).getCharacters().size();
-				contents[i][5] = Arrays.toString(accounts.get(i).getCharacters().toArray());
+				contents[i][5] = Arrays.toString(accounts.get(i).getCharactersAvaliableToHunt().toArray());
 			}
 			this.mainWindow.getTableAccounts().setModel(new DefaultTableModel(contents,
 		            new String[] {

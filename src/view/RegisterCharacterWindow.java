@@ -89,6 +89,22 @@ public class RegisterCharacterWindow extends JFrame {
 	}
 	
 	//Getters and other Methods
+	public boolean checkFields(){
+		if (this.getCharacterName_TF().isEmpty() || this.getCurrentStamina_TF().isEmpty() || 
+			this.getBankBalance_TF().isEmpty() || !this.getCharacterName_TF().matches("^[\\p{L} .'-]+$") ||
+			!this.getCurrentStamina_TF().matches("\\d+") || !this.getBankBalance_TF().matches("\\d+") ||
+			!this.isAccountSelected() || this.characterController.isRepeatedCharacterName(this.getCharacterName_TF())){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isAccountSelected() {
+		if (this.comboBoxAccounts.getSelectedIndex() != 0) {
+			return true;
+		}
+		return false;
+	}
 	
 	public int getAccountComboBoxValue() {
 		return Integer.parseInt(this.comboBoxAccounts.getSelectedItem().toString());
@@ -107,12 +123,12 @@ public class RegisterCharacterWindow extends JFrame {
 		return characterName_TF.getText();
 	}
 
-	public int getCurrentStamina_TF() {
-		return Integer.parseInt(currentStamina_TF.getText());
+	public String getCurrentStamina_TF() {
+		return currentStamina_TF.getText();
 	}
 
-	public int getBankBalance_TF() {
-		return Integer.parseInt(bankBalance_TF.getText());
+	public String getBankBalance_TF() {
+		return bankBalance_TF.getText();
 	}
 	
 

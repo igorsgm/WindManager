@@ -12,7 +12,6 @@ public class Account {
 	private String accName; //login
 	private String accPassword; //password
 	private ArrayList<Character> characters;
-	private ArrayList<Character> charactersAvaliableToHunt; //ammount of avaliable chars to hunt: stamina > x
 	private int amountOfChars;
 	private String accStatus; // is premium account?
 
@@ -81,11 +80,13 @@ public class Account {
 	}
 
 	public ArrayList<Character> getCharactersAvaliableToHunt() {
+		ArrayList<Character> charactersAvaliableToHunt = new ArrayList<Character>();
+		for (int i=0; i < this.characters.size(); i++){
+			if (this.characters.get(i).getStamina() > 22){
+				charactersAvaliableToHunt.add(this.characters.get(i));
+			}
+		}
 		return charactersAvaliableToHunt;
-	}
-
-	public void setCharactersAvaliableToHunt(ArrayList<Character> charactersAvaliableToHunt) {
-		this.charactersAvaliableToHunt = charactersAvaliableToHunt;
 	}
 	
 	public String getCharactersNames(){

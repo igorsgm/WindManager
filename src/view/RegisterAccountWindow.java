@@ -67,9 +67,18 @@ public class RegisterAccountWindow extends JFrame {
 		
 	}
 	
+	public boolean checkFields(){
+		if (this.getAccID_TF().isEmpty() || this.getAccName_TF().isEmpty() || this.getPassword_TF().isEmpty() ||
+			!this.getAccID_TF().matches("\\d+") || !this.getAccName_TF().matches("[a-zA-Z0-9]+") ||
+			this.accountController.isRepeatedAccID(Integer.parseInt(this.getAccID_TF()))){
+			return false;
+		}
+		return true;
+	}
+	
 	//Getters
-	public int getAccID_TF() {
-		return Integer.parseInt(accID_TF.getText());
+	public String getAccID_TF() {
+		return accID_TF.getText();
 	}
 	public String getAccName_TF() {
 		return accName_TF.getText();

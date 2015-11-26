@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import control.AccountController;
 import control.CharacterController;
 import exception.AccountNotFoundException;
@@ -25,14 +27,14 @@ public class RegisterCharacterBtnListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(!this.characterController.isRepeatedCharacterName(this.registerCharacterWindow.getCharacterName_TF())){
+		if(this.registerCharacterWindow.checkFields()){
 			this.websiteReader = new WebsiteReader(this.registerCharacterWindow.getCharacterName_TF(), "Vocation");
 			try {
 				this.characterController.registerNewCharacter(this.characterController.getAccountByID(this.registerCharacterWindow.getAccountComboBoxValue()),
 															this.registerCharacterWindow.getCharacterName_TF(),
 															this.websiteReader.characterInfoReader(),
-															this.registerCharacterWindow.getCurrentStamina_TF(),
-															this.registerCharacterWindow.getBankBalance_TF());
+															Integer.parseInt(this.registerCharacterWindow.getCurrentStamina_TF()),
+															Integer.parseInt(this.registerCharacterWindow.getBankBalance_TF()));
 			} catch (AccountNotFoundException | IOException e1) {
 				e1.printStackTrace();
 				e1.getMessage();
@@ -44,7 +46,8 @@ public class RegisterCharacterBtnListener implements ActionListener {
 			}
 			this.characterController.closeRegisterCharacterWindow();
 		}else{
-			//Do nothing
+			//Error Message
+			JOptionPane.showMessageDialog(null, "Incorrect filled fields or this character name already exists", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
