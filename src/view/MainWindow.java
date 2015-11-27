@@ -184,6 +184,11 @@ public class MainWindow extends JFrame {
                 Component c = super.prepareRenderer(renderer, row, column);
                 if (!isRowSelected(row)){
 					c.setBackground(row % 2 == 0 ? getBackground() : Color.LIGHT_GRAY);
+					int modelRow = convertRowIndexToModel(row);
+					String type = (String)getModel().getValueAt(modelRow, 5);
+					if ("online".equals(type) && column == 5) c.setBackground(Color.GREEN);
+					//if ("offline".equals(type) && column == 5) c.setBackground(Color.RED);
+					
                 }
 				return c;
             }
