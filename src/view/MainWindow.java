@@ -186,8 +186,8 @@ public class MainWindow extends JFrame {
 					c.setBackground(row % 2 == 0 ? getBackground() : Color.LIGHT_GRAY);
 					int modelRow = convertRowIndexToModel(row);
 					String type = (String)getModel().getValueAt(modelRow, 5);
-					if ("online".equals(type) && column == 5) c.setBackground(Color.GREEN);
-					//if ("offline".equals(type) && column == 5) c.setBackground(Color.RED);
+					if ("online".equals(type) && column == 5) c.setBackground(new Color(40,201,64));
+					if ("offline".equals(type) && column == 5) c.setBackground(new Color(255,96,88));
 					
                 }
 				return c;
